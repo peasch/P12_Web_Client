@@ -1,0 +1,18 @@
+.section-top{
+  background: linear-gradient(180deg, #ff7423,white);
+  text-align: center;
+  height: 300px;
+
+}
+.section-bottom{
+  background: linear-gradient(0deg, #ff7423,white);
+  text-align: center;
+  height: 200px;
+
+}
+.footer{
+  background: linear-gradient(180deg,#ff7423,white);
+  text-align: center;
+  color: #24292e;
+  height: 200px;
+}
