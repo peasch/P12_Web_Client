@@ -1,0 +1,16 @@
+<div class="col-xs-12" style="justify-content: center;text-align: center">
+  <img height="200px" [src]="cheminImage"/>
+  <p> Mise à jour : {{lastUpdate  | date: 'y MMMM EEEE d' }}</p>
+  <ul class="list-group">
+    <app-appareil *ngFor="let appareil of apparels; let i = index"
+                  [indexOfAppareil]="i"
+                  [appareilName]="appareil.name"
+                  [appareilStatus]="appareil.status"
+                    [id]="appareil.id"></app-appareil>
+
+  </ul>
+  <button class="btn btn-outline-danger" style="justify-content: center"
+          (click)="onAllumer()"> réserver
+  </button>
+  <button class="btn btn-outline-success" style="justify-content: center" (click)="onEteindre()">Rendre</button>
+</div>
