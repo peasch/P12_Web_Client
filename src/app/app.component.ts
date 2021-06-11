@@ -7,4 +7,6 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'jeuxagogo';
+
+  cheminImage: any = "../assets/jeux-acc80-gogo.png";
 }
