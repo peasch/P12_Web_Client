@@ -3,7 +3,7 @@ import {FormBuilder, FormGroup} from "@angular/forms";
 import {User} from "../models/user.model";
 import {UserService} from "../services/user.service";
 import {Router} from "@angular/router";
-import {HttpClient} from "@angular/common/http";
+import {AuthService} from "../services/auth.service";
 
 @Component({
   selector: 'app-registration',
@@ -17,6 +17,7 @@ export class RegistrationComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
               private userService: UserService,
+              private authService:AuthService,
               private router: Router) {
   }
 
@@ -26,29 +27,24 @@ export class RegistrationComponent implements OnInit {
 
   initForm() {
     this.userForm = this.formBuilder.group({
-      firstName: '',
+      firstname: '',
       name: '',
       email: '',
       password: '',
-      birthdate: '',
-      userName: ''
+      birthDate: '',
+      username: ''
     });
   }
 
-  onSubmitForm() {
-    const formValue = this.userForm.value;
-    const newUser = new User(
-      formValue['firstName'],
-      formValue['name'],
-      formValue['email'],
-      formValue['birthdate'],
-      formValue['password'],
-      formValue['userName']
-    );
-    // this.userService.addUser(newUser);
-    this.userService.saveUser(newUser);
-    this.router.navigate(['']);
-  }
+  onSubmitForm(userForm:FormGroup) {
 
+    this.authService.register(userForm)
+      .subscribe(res => {
+        this.router.navigate(['login']);
+      }, (err) => {
+        console.log(err);
+        alert(err.error);
+      });
+  }
 
 }

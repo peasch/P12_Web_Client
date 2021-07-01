@@ -1,48 +1,43 @@
 import {User} from '../models/user.model';
-import {Subject} from "rxjs";
+import {Observable, Subject} from "rxjs";
 import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
+import {catchError, tap} from "rxjs/operators";
+import {JwtHelperService} from '@auth0/angular-jwt';
+import {colors} from "@angular/cli/utilities/color";
+
+
+const apiUrl = 'http://localhost:8989/user/';
 
 @Injectable()
 export class UserService {
-  private users!: User[];
+   user!:User;
   userSubject = new Subject<User[]>();
 
- constructor(private httpClient:HttpClient) {
- }
-  emitUsers() {
-    this.userSubject.next(this.users.slice());
+  constructor(private http: HttpClient,
+              private jwtHelperService: JwtHelperService) {
   }
 
-  addUser(user: User) {
-    this.users.push(user);
-    this.emitUsers();
-  }
-  saveUser(user:User){
-    this.httpClient
-      .post('http://localhost:8989/auth/register',user)
-      .subscribe(
-        () => {
-          console.log('enregistrement utilisateur');
-        },
-        (error) => {
-          console.log('erreur :' + error );
 
-        }
-      );
-  }
-  login(user:User){
-   this.httpClient
-     .post('http://localhost:8989/auth/login',user)
-     .subscribe(
-       () => {
-         console.log('connecté');
-       },
-       (error) => {
-         console.log('erreur :' + error );
 
-       }
-     );
+  resolvingToken(): String {
+
+    // @ts-ignore
+    const decodedtoken = this.jwtHelperService.decodeToken(localStorage.getItem('token'));
+    console.log(decodedtoken);
+    return decodedtoken.sub;
+
+  }
+
+  // @ts-ignore
+  getUserProfilFromServer():Observable<User> {
+   this.http.get<User>(apiUrl + 'username/' + this.resolvingToken()).subscribe((response) => {
+     console.log(response);
+     this.user=response;
+      },(error => {
+        console.log('erreur :' + error);
+     })
+    )
   }
 }
 
