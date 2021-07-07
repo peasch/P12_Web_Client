@@ -45,7 +45,7 @@ export class LoginComponent implements OnInit {
       });
     this.isLoggedIn = this.authService.isLoggedIn;
     // @ts-ignore
-    this.userService.resolvingToken(localStorage.getItem('token'));
+    this.userService.resolvingToken();
     this.router.navigate(['']);
 
   }

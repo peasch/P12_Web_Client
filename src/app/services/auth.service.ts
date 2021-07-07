@@ -7,7 +7,6 @@ const apiUrl = 'http://localhost:8989/auth/';
 @Injectable()
 export class AuthService{
   isLoggedIn = false;
-  redirectUrl!: string;
 
   constructor(private http:HttpClient) {
   }

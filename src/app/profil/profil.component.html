@@ -1,7 +1,8 @@
 <section *ngIf="authService.isLoggedIn">
-<div>
-  <p>token : {{token}}</p>
-</div>
+
+  <div>
+    <p>token : {{token}}</p>
+  </div>
 
   <div class="red-divider"></div>
 
@@ -11,12 +12,11 @@
       <div class="row">
         <div class="red-divider"></div>
         <div class="container skillancien">
-          <div >
-            <span>Nom : {{user}}</span><br>
-            <span>Prénom :{{user}} </span><br>
-            <span>Nom d'utilisateur : {{user}}</span><br>
-            <span>Email : {{user}} </span><br>
-
+          <div>
+            <span>Nom : {{user.name}}</span><br>
+            <span>Prénom :{{user.firstname}} </span><br>
+            <span>Nom d'utilisateur : {{user.username}}</span><br>
+            <span>Email : {{user.email}} </span><br>
           </div>
         </div>
         <div class="red-divider"></div>

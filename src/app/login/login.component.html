@@ -1,6 +1,6 @@
 <section>
   <div class="container">
-    <div class="col-sm-4 offset-4" style="justify-content: center">
+    <div class="col-sm-4 offset-4" style="justify-content: center;margin-top: 50px">
       <form [formGroup]="userLoginForm" (ngSubmit)="onSubmitFormLogin(userLoginForm.value)">
         <div class="form-group">
           <label for="username">Nom d'utilisateur</label>
@@ -8,9 +8,9 @@
         </div>
         <div class="form-group">
           <label for="password">Mot de passe</label>
-          <input type="text" id="password" class="form-control" formControlName="password">
+          <input type="password" id="password" class="form-control" formControlName="password">
         </div>
-        <button type="submit" class="btn btn-primary" style="margin:10px ">connexion</button>
+        <button type="submit" class="btn btn-primary" style="margin:10px;background-color: #ff7423;border-color: #ff7423 ">connexion</button>
       </form>
     </div>
   </div>

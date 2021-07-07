@@ -13,10 +13,23 @@ import {AuthService} from "./services/auth.service";
 import { ProfilComponent } from './profil/profil.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { JwtModule } from "@auth0/angular-jwt";
+import { GamesComponent } from './games/games.component';
+import { SingleGameComponent } from './single-game/single-game.component';
+import {GameService} from "./services/game.service";
+import { FourOhFourComponent } from './four-oh-four/four-oh-four.component';
+import { HomeComponent } from './home/home.component';
+import {AuthGuard} from "./services/auth-guard.service";
+
 const appRoutes: Routes = [
   {path:'registration', component:RegistrationComponent},
   {path:'login',component:LoginComponent},
-  {path:'profil',component:ProfilComponent}
+  {path:'profil',canActivate:[AuthGuard], component:ProfilComponent},
+  {path:'games',component:GamesComponent},
+  {path:'singleGame',component:SingleGameComponent},
+  {path:'home', component:HomeComponent},
+  {path:'not-found', component:FourOhFourComponent},
+  {path:'',component:HomeComponent},
+  {path:'**',redirectTo:'/not-found'}
   ];
 @NgModule({
   declarations: [
@@ -25,7 +38,12 @@ const appRoutes: Routes = [
     RegistrationComponent,
     LoginComponent,
     ProfilComponent,
-    NavbarComponent
+    NavbarComponent,
+    GamesComponent,
+    SingleGameComponent,
+    FourOhFourComponent,
+    HomeComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -46,7 +64,9 @@ const appRoutes: Routes = [
       useClass: TokenInterceptor,
       multi: true
     },
-    AuthService
+    AuthService,
+    GameService,
+    AuthGuard
   ],
   bootstrap: [AppComponent]
 })
