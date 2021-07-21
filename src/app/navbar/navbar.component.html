@@ -1,8 +1,8 @@
 
-<nav class="navbar navbar-expand navbar-light bg-light">
+<nav class="navbar navbar-expand navbar-light bg-light"style=" background: linear-gradient(180deg, #ff7423,white);">
   <div class="container">
     <a class="navbar-brand" routerLink="">
-      <img [src]="cheminImage" alt="" width="70" height="50"class="d-inline-block" >
+      <img [src]="cheminImage" alt="" width="70" height="50"class="d-inline-block" style="">
     </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -13,11 +13,18 @@
         <li class="nav-item" routerLinkActive="active">
           <a class="nav-link" routerLink="">Jeux-à-gogo.fr</a>
         </li>
+
         <li class="nav-item"  routerLinkActive="active">
           <a class="nav-link" routerLink="games">Nos jeux</a>
         </li>
-        <li class="nav-item"  routerLinkActive="active">
-          <a class="nav-link" routerLink="snake">Snake</a>
+        <li class="nav-item" routerLinkActive="active">
+          <a class="nav-link" routerLink="snake">404</a>
+        </li>
+        <li class="nav-item" *ngIf="authService.isLoggedIn && userService.isAdmin()" routerLinkActive="active"  >
+          <a class="nav-link" routerLink="userAdmin">Admin</a>
+        </li>
+        <li class="nav-item" *ngIf="authService.isLoggedIn && userService.isAdmin()" routerLinkActive="active"  >
+          <a class="nav-link" routerLink="addGame">addGame</a>
         </li>
       </ul>
       <div class="navbar ml-auto">

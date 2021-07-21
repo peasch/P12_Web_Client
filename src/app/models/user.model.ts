@@ -1,3 +1,5 @@
+import {Role} from "./role.model";
+
 export class User{
 
   constructor(public firstname: string,
@@ -5,7 +7,8 @@ export class User{
               public email: string,
               public password:string,
               public birthDate : Date,
-              public username: string) {
+              public username: string,
+              public rolesDto: Set<Role>) {
   }
 
 }

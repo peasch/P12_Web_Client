@@ -1,21 +1,45 @@
 <div class="row">
   <div class="col-xs-12">
-    <h2>Liste de nos jeux</h2>
-    <div class="list-group" class="list-group-item"
-         *ngFor="let game of games; let i = index" style="display: inline-block;
-         align-content:center;justify-content: center;margin:30px;border:solid black 1px">
-      <div class="card" >
-      <div class="card-body">
-        <h3 class="list-group-item-heading">{{ game.name }}</h3>
-        <p class="list-group-item-text">{{ game.ageMin }} ans minimum</p>
+    <div class="row" style="text-align: center;padding-top: 50px"
+         *ngIf="authService.isLoggedIn && userService.isAdmin()">
+      <h2>Administration des jeux</h2>
+      <div class="col-lg-8 offset-2" routerLinkActive="active">
+        <span type="button" class="button"
+              style="margin:10px" (click)="navigateToAddGame()">Ajouter un jeu</span>
+        <span type="button" class="button"
+              style="margin:10px " routerLink="">Restitution d'un jeu</span>
       </div>
-      <div class="col-xl-6">
-        <button type="submit" class="btn btn-outline-dark" style="margin:10px "
-                *ngIf="authService.isLoggedIn">Reserver
-        </button>
-      </div>
+      <div class="row">
+        <div class="col-lg-4 offset-4">
+          <input type="text" id="game" placeholder="Rechercher un jeu..." class="form-control" formControlName="game">
+          <span type="button" class="button"
+                style="margin:10px " routerLink="">Rechercher</span>
+        </div>
       </div>
     </div>
+    <div class="row" style="text-align: center;padding: 50px">
+      <h2>Liste de nos jeux</h2>
+    </div>
+    <div class="row">
+      <div class="col-lg-3"
+           *ngFor="let game of games; let i = index" style="border: black solid 1px;margin: 30px;padding: 10px">
+        <div>
+          <div>
+            <h3>{{ game.name }}</h3>
+            <p>{{ game.ageMin }} ans minimum</p>
+            <p> game id : {{game.id}}</p>
+          </div>
+          <div >
+            <button type="submit" class="btn btn-outline-dark" style="margin:10px "
+                    *ngIf="authService.isLoggedIn  && !userService.isAdmin()">Reserver
+            </button>
+            <button type="submit" class="btn btn-outline-dark" style="margin:10px "
+                    *ngIf="authService.isLoggedIn  && userService.isAdmin()" (click)= navigateToDetails(game.id)>Modifier
+            </button>
 
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

@@ -1,1 +1,26 @@
-<p>single-game works!</p>
+<div>
+  <p> {{game.name}}</p>
+
+  <a href="{{game.rulesLink}}">comment jouer ?</a>
+</div>
+<button type="button" (click)="navigateToGames()">retour</button>
+
+<div>
+  <h2>Ajouter une copie:
+  </h2>
+</div>
+<div class="container">
+  <div class="col-sm-2 offset-2" style="justify-content: center">
+    <form [formGroup]="copyForm" (ngSubmit)="onSubmitForm(copyForm.value)">
+      <div class="form-group">
+        <label for="code">code de la boite</label>
+        <input type="text" id="code" class="form-control" formControlName="code">
+      </div>
+      <div class="form-group">
+        <label for="game">jeu</label>
+        <input  id="game" class="form-control" formControlName="game" value="{{game}}" hidden>
+      </div>
+      <button type="submit" class="btn btn-primary" style="margin:10px ">Ajouter un exemplaire</button>
+    </form>
+  </div>
+</div>

@@ -1,19 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
 import {GameService} from "../services/game.service";
 import {AuthService} from "../services/auth.service";
+import {UserService} from "../services/user.service";
+import {ControlContainer, FormGroupDirective} from "@angular/forms";
 
 @Component({
   selector: 'app-games',
   templateUrl: './games.component.html',
-  styleUrls: ['./games.component.css']
+  styleUrls: ['./games.component.css'],
 })
 export class GamesComponent implements OnInit {
 
    games!: any[];
   constructor(private router :Router,
               public gameService :GameService,
-              public authService: AuthService) { }
+              public authService: AuthService,
+              public userService:UserService) { }
 
   ngOnInit(): void {
   this.gameService.getAllGames().subscribe(
@@ -21,7 +24,11 @@ export class GamesComponent implements OnInit {
       this.games=games);
   }
 
-  navigateToGame(){
+  navigateToAddGame(){
+    this.router.navigate(['addGame']);
+  }
 
+  navigateToDetails(gameId :any){
+    this.router.navigate(['singleGame/'+gameId]);
   }
 }

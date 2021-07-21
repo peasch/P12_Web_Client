@@ -12,7 +12,7 @@ export class AuthService{
   }
 
   login(data: any): Observable<any> {
-
+    localStorage.removeItem('token');
     // @ts-ignore
     return this.http.post<any>(apiUrl + 'login', data,{responseType: 'text'})
       .pipe(
@@ -24,6 +24,7 @@ export class AuthService{
 
   logout() {
      this.isLoggedIn = false;
+     localStorage.removeItem('token');
 
   }
 

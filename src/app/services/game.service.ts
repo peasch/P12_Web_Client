@@ -18,4 +18,8 @@ export class GameService {
   getGameById(id:number):Observable<Game>{
     return this.http.get<any>(apiUrl + id);
   }
+
+  addGame(data:any):Observable<any>{
+    return this.http.post<any>(apiUrl + 'add',data);
+  }
 }

@@ -1,0 +1,34 @@
+<section>
+  <div class="container">
+    <div class="col-sm-8 offset-2" style="justify-content: center">
+      <form [formGroup]="gameForm" (ngSubmit)="onSubmitForm(gameForm.value)">
+
+        <div class="form-group">
+          <label for="name">Nom</label>
+          <input type="text" id="name" class="form-control" formControlName="name">
+        </div>
+        <div class="form-group">
+          <label for="ageMin">Âge minimum (0-100)</label>
+          <input type="number" id="ageMin" class="form-control" formControlName="ageMin">
+        </div>
+        <div class="form-group">
+          <label for="minPlayers">Nombre de joueurs minimum</label>
+          <input type="number" id="minPlayers" class="form-control" formControlName="minPlayers">
+        </div>
+        <div class="form-group">
+          <label for="maxPlayers">Nombre de joueurs maximum</label>
+          <input type="number" id="maxPlayers" class="form-control" formControlName="maxPlayers">
+        </div>
+        <div class="form-group">
+          <label for="duration">Durée moyenne d'une partie</label>
+          <input type="number" id="duration" class="form-control" formControlName="duration">
+        </div>
+        <div class="form-group">
+          <label for="rulesLink">Lien vers la vidéo de règles</label>
+          <input type="text" id="rulesLink" class="form-control" formControlName="rulesLink">
+        </div>
+        <button type="submit" class="btn btn-primary" style="margin:10px ">Ajouter le jeu</button>
+      </form>
+    </div>
+  </div>
+</section>

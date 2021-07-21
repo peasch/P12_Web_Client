@@ -17,6 +17,7 @@ export class ProfilComponent implements OnInit {
   token!: string | null;
   userSubject = new Subject<User>();
   user!: User;
+  users!:Set<User>;
 
   constructor(private router: Router,
               public authService: AuthService,
@@ -29,6 +30,7 @@ export class ProfilComponent implements OnInit {
     this.userService.getUserDatas()
       .subscribe(
         user=> this.user=user);
+
   }
 
 

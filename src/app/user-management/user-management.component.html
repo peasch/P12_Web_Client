@@ -1,0 +1,22 @@
+<section *ngIf="authService.isLoggedIn">
+
+  <div class="red-divider"></div>
+
+  <div class="heading">
+    <h2>Gestion des utilisateurs</h2>
+    <div class="container">
+      <div class="row">
+        <div class="red-divider"></div>
+
+        <div class="col" *ngFor="let users of users" style="border: solid black 1px;margin:10px;padding: 10px">
+          <span> Nom: {{users.name}}</span><br>
+          <span> Prénom: {{users.firstname}}</span><br>
+          <span>Rôle:<span *ngFor="let role of users.rolesDto"> {{role.role}}</span></span><br>
+          <button type="submit" class="btn btn-outline-dark" style="margin:10px "
+                  *ngIf="authService.isLoggedIn  && userService.isAdmin()">Modifier le rôle
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

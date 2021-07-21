@@ -19,14 +19,20 @@ import {GameService} from "./services/game.service";
 import { FourOhFourComponent } from './four-oh-four/four-oh-four.component';
 import { HomeComponent } from './home/home.component';
 import {AuthGuard} from "./services/auth-guard.service";
+import { AddingGameComponent } from './adding-game/adding-game.component';
+import { UserManagementComponent } from './user-management/user-management.component';
+import { AddCopyComponent } from './add-copy/add-copy.component';
+import {CopyService} from "./services/copy.service";
 
 const appRoutes: Routes = [
   {path:'registration', component:RegistrationComponent},
   {path:'login',component:LoginComponent},
   {path:'profil',canActivate:[AuthGuard], component:ProfilComponent},
   {path:'games',component:GamesComponent},
-  {path:'singleGame',component:SingleGameComponent},
+  {path:'addGame',canActivate:[AuthGuard],component:AddingGameComponent},
+  {path:'singleGame/:id',canActivate:[AuthGuard],component:SingleGameComponent},
   {path:'home', component:HomeComponent},
+  {path:'userAdmin',component:UserManagementComponent},
   {path:'not-found', component:FourOhFourComponent},
   {path:'',component:HomeComponent},
   {path:'**',redirectTo:'/not-found'}
@@ -43,6 +49,9 @@ const appRoutes: Routes = [
     SingleGameComponent,
     FourOhFourComponent,
     HomeComponent,
+    AddingGameComponent,
+    UserManagementComponent,
+    AddCopyComponent,
 
   ],
   imports: [
@@ -66,6 +75,7 @@ const appRoutes: Routes = [
     },
     AuthService,
     GameService,
+    CopyService,
     AuthGuard
   ],
   bootstrap: [AppComponent]
