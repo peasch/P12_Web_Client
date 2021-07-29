@@ -1,0 +1,51 @@
+
+<section>
+  <div class="container">
+    <div class="col-sm-4 offset-4" style="justify-content: center">
+      <form [formGroup]="gameForm" >
+
+        <div class="form-group">
+          <label for="name">{{game.name}}</label>
+          <input type="text" id="name" placeholder="{{game.name}}"  class="form-control" formControlName="name">
+        </div>
+        <div class="form-group">
+          <label for="ageMin">{{game.ageMin}}Âge minimum (0-100)</label>
+          <input type="number" id="ageMin" placeholder="{{game.ageMin}}" class="form-control" formControlName="ageMin">
+        </div>
+        <div class="form-group">
+          <label for="minPlayers">Nombre de joueurs minimum</label>
+          <input type="number" id="minPlayers"placeholder="{{game.minPlayers}}" class="form-control" formControlName="minPlayers">
+        </div>
+        <div class="form-group">
+          <label for="maxPlayers">Nombre de joueurs maximum</label>
+          <input type="number" id="maxPlayers" placeholder="{{game.maxPlayers}}" class="form-control" formControlName="maxPlayers">
+        </div>
+        <div class="form-group">
+          <label for="duration">Durée moyenne d'une partie</label>
+          <input type="number" id="duration" placeholder="{{game.duration}}"class="form-control" formControlName="duration">
+        </div>
+        <div class="form-group">
+          <label for="rulesLink">Lien vers la vidéo de règles</label>
+          <input type="text" id="rulesLink" placeholder="{{game.rulesLink}}"class="form-control" formControlName="rulesLink">
+        </div>
+        <div class="form-group">
+          <label for="description">Description</label>
+          <textarea id="description" class="form-control" placeholder="{{game.description}}"
+                    formControlName="description" rows="8" cols="30"></textarea>
+        </div>
+        <div formGroupName="gameStyleDto">
+
+          <div class="form-group">
+            <label for="id">genre</label><br>
+            <select name="gameStyleDto" id="id" formControlName="id" >
+              <option *ngFor="let gameStyleDto of gameStyles" value="{{gameStyleDto.id}}">{{gameStyleDto.name}}</option>
+            </select>
+          </div>
+
+        </div>
+        <span type="submit" class="button" style="margin:10px " (click)="onModifyGame(gameForm.value)">Ajouter le jeu</span>
+      </form>
+    </div>
+  </div>
+</section>
+
