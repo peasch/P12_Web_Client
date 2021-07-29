@@ -1,15 +1,37 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <div>
   <p> {{game.name}}</p>
 
   <a href="{{game.rulesLink}}">comment jouer ?</a>
+
+  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    Emprunter
+  </button>
+
 </div>
 <button type="button" (click)="navigateToGames()">retour</button>
 
-<div>
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Confirmez la demande d'emprunt pour : {{game.name}}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="onBorrowingGame(game.id)">Confirmer</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container" *ngIf="authService.isLoggedIn  && (userService.isAdmin()|| userService.isModo())">
   <h2>Ajouter une copie:
   </h2>
-</div>
-<div class="container">
   <div class="col-sm-2 offset-2" style="justify-content: center">
     <form [formGroup]="copyForm" (ngSubmit)="onSubmitForm(copyForm.value)">
       <div class="form-group">

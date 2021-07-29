@@ -51,6 +51,8 @@ export class LoginComponent implements OnInit {
   }
 
   logout(){
+    localStorage.removeItem('token');
+    localStorage.removeItem('username');
     this.authService.logout();
     this.isLoggedIn=this.authService.isLoggedIn;
   }

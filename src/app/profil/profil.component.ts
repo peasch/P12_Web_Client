@@ -4,6 +4,10 @@ import {AuthService} from "../services/auth.service";
 import {User} from "../models/user.model";
 import {Subject, Subscription} from "rxjs";
 import {UserService} from "../services/user.service";
+import {BorrowingService} from "../services/borrowing.service";
+import {CopyService} from "../services/copy.service";
+import {GameService} from "../services/game.service";
+
 
 
 
@@ -17,11 +21,14 @@ export class ProfilComponent implements OnInit {
   token!: string | null;
   userSubject = new Subject<User>();
   user!: User;
-  users!:Set<User>;
+username!:string | null;
+  borrowings!:any[];
 
   constructor(private router: Router,
               public authService: AuthService,
-              public userService: UserService) {
+              public userService: UserService,
+              public gameService: GameService,
+              private borrowingService:BorrowingService) {
   }
 
 
@@ -31,6 +38,9 @@ export class ProfilComponent implements OnInit {
       .subscribe(
         user=> this.user=user);
 
+    let username = localStorage.getItem('username');
+    this.borrowingService.getAllBorrowingsByUsername(username).subscribe(borrowings =>
+      this.borrowings=borrowings);
   }
 
 

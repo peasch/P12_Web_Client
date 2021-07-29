@@ -30,7 +30,7 @@
               "src/assets/styles/bootstrap-5.0.1/dist/css/bootstrap.css",
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": ["src/assets/styles/bootstrap-5.0.1/dist/js/bootstrap.bundle.min.js"]
           },
           "configurations": {
             "production": {

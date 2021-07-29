@@ -2,6 +2,8 @@ import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Game} from "../models/game.model";
+import {GameStyleDto} from "../models/gameStyleDto.model";
+
 
 const apiUrl = 'http://localhost:8989/game/';
 
@@ -22,4 +24,11 @@ export class GameService {
   addGame(data:any):Observable<any>{
     return this.http.post<any>(apiUrl + 'add',data);
   }
+  getGameStyleList():Observable<Set<GameStyleDto>>{
+    return this.http.get<any>('http://localhost:8989/style/all');
+  }
+  getGameStyleById(id:number):Observable<Set<GameStyleDto>>{
+    return this.http.get<any>('http://localhost:8989/style/'+id);
+  }
+
 }

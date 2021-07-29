@@ -14,4 +14,5 @@ export class CopyService {
   addCopy(data: any,id:number): Observable<Copy> {
      return this.http.post<any>(apiUrl + 'add/' + id, data);
   }
+
 }

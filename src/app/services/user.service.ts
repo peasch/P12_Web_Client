@@ -24,6 +24,7 @@ export class UserService {
 
     // @ts-ignore
     const decodedoken = this.jwtHelperService.decodeToken(localStorage.getItem('token'));
+    localStorage.setItem('username',decodedoken.sub);
     return decodedoken.sub;
 
   }
@@ -51,7 +52,17 @@ export class UserService {
       return false;
 
   }
+  isModo(): boolean {
+    this.roles = this.getRoleOfToken();
 
+    for (let role of this.roles) {
+      if (role.role === 'MODERATOR') {
+        return true;
+      }
+    }
+    return false;
+
+  }
   getUsers(): Observable<Set<User>> {
     return this.http.get<any>(apiUrl + 'all');
 

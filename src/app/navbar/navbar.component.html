@@ -24,8 +24,9 @@
           <a class="nav-link" routerLink="userAdmin">Admin</a>
         </li>
         <li class="nav-item" *ngIf="authService.isLoggedIn && userService.isAdmin()" routerLinkActive="active"  >
-          <a class="nav-link" routerLink="addGame">addGame</a>
+          <a class="nav-link" routerLink="emprunt">emprunt(s)</a>
         </li>
+
       </ul>
       <div class="navbar ml-auto">
         <ul class="navbar-nav ml-auto mb-2 mb-lg-0">

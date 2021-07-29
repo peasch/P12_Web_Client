@@ -20,4 +20,14 @@
     </div>
   </div>
 </section>
+<section>
+  <h3>emprunts en cours</h3>
+  <div class="row">
+    <div class="col-lg-3" *ngFor="let borrowing of borrowings" style="border: black solid 1px;margin: 30px;padding: 10px">
+      <span>jeu : {{borrowing.copyDto.game.name}}</span><br>
+      <span>date d'emprunt : {{borrowing.date | date :'longDate' :'':'fr-FR'}}</span><br>
+      <span>retour prévu: {{borrowing.returnDate | date :'longDate' :'':'fr-FR'}}</span><br>
+    </div>
+  </div>
+</section>
 

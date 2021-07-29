@@ -4,6 +4,5 @@ export class Copy{
 
   constructor(public code:string,
               public available: boolean,
-              public game:Game)  {
-  }
+              public game:Game)  {}
 }

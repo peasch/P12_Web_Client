@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
+
 import { AppComponent } from './app.component';
 import { AuthComponent } from './auth/auth.component';
 import { RegistrationComponent } from './registration/registration.component';
@@ -21,8 +22,17 @@ import { HomeComponent } from './home/home.component';
 import {AuthGuard} from "./services/auth-guard.service";
 import { AddingGameComponent } from './adding-game/adding-game.component';
 import { UserManagementComponent } from './user-management/user-management.component';
-import { AddCopyComponent } from './add-copy/add-copy.component';
+import { ModalModule } from 'ngx-bootstrap/modal';
+
 import {CopyService} from "./services/copy.service";
+import { BorrowingManagementComponent } from './borrowing-management/borrowing-management.component';
+import {BorrowingService} from "./services/borrowing.service";
+import { registerLocaleData } from '@angular/common';
+import localeFr from '@angular/common/locales/fr';
+import localeFrExtra from '@angular/common/locales/extra/fr';
+
+
+registerLocaleData(localeFr, 'fr-FR',localeFrExtra);
 
 const appRoutes: Routes = [
   {path:'registration', component:RegistrationComponent},
@@ -31,6 +41,7 @@ const appRoutes: Routes = [
   {path:'games',component:GamesComponent},
   {path:'addGame',canActivate:[AuthGuard],component:AddingGameComponent},
   {path:'singleGame/:id',canActivate:[AuthGuard],component:SingleGameComponent},
+  {path:'emprunt',canActivate:[AuthGuard],component:BorrowingManagementComponent},
   {path:'home', component:HomeComponent},
   {path:'userAdmin',component:UserManagementComponent},
   {path:'not-found', component:FourOhFourComponent},
@@ -51,7 +62,9 @@ const appRoutes: Routes = [
     HomeComponent,
     AddingGameComponent,
     UserManagementComponent,
-    AddCopyComponent,
+    BorrowingManagementComponent,
+
+
 
   ],
   imports: [
@@ -60,6 +73,7 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes),
     FormsModule,
     ReactiveFormsModule,
+    ModalModule,
     JwtModule.forRoot({
       config: {
         tokenGetter:  () => localStorage.getItem('token')
@@ -76,6 +90,7 @@ const appRoutes: Routes = [
     AuthService,
     GameService,
     CopyService,
+    BorrowingService,
     AuthGuard
   ],
   bootstrap: [AppComponent]

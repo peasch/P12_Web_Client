@@ -27,6 +27,16 @@
           <label for="rulesLink">Lien vers la vidéo de règles</label>
           <input type="text" id="rulesLink" class="form-control" formControlName="rulesLink">
         </div>
+        <div formGroupName="gameStyleDto">
+
+          <div class="form-group">
+            <label for="id">genre</label><br>
+            <select name="gameStyleDto" id="id" formControlName="id">
+              <option *ngFor="let gameStyleDto of gameStyles" value="{{gameStyleDto.id}}">{{gameStyleDto.name}}</option>
+            </select>
+          </div>
+
+        </div>
         <button type="submit" class="btn btn-primary" style="margin:10px ">Ajouter le jeu</button>
       </form>
     </div>

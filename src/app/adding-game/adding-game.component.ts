@@ -1,8 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {ControlContainer, FormBuilder, FormGroup, FormGroupDirective, Validators} from "@angular/forms";
+import {FormBuilder, FormGroup} from "@angular/forms";
 import {UserService} from "../services/user.service";
 import {Router} from "@angular/router";
 import {GameService} from "../services/game.service";
+import {GameStyleDto} from "../models/gameStyleDto.model";
+import {Game} from "../models/game.model";
 
 @Component({
   selector: 'app-adding-game',
@@ -12,30 +14,48 @@ import {GameService} from "../services/game.service";
 export class AddingGameComponent implements OnInit {
 
   gameForm!: FormGroup;
+  gameStyles!: Set<GameStyleDto>;
+  game!: Game;
+
 
   constructor(private formBuilder: FormBuilder,
               private userService: UserService,
-              private gameService: GameService,
+              public gameService: GameService,
               private router: Router) {
   }
 
   ngOnInit(): void {
     this.initForm();
+    this.gameService.getGameStyleList().subscribe(
+      gameStyles => this.gameStyles = gameStyles);
   }
 
   initForm() {
     this.gameForm = this.formBuilder.group({
       name: '',
       ageMin: '',
+      gameStyleDto: this.formBuilder.group(
+        {
+          id: '',
+          name: ''
+        }
+      ),
       minPlayers: '',
-      maxPlayers:'',
+      maxPlayers: '',
       duration: '',
       rulesLink: ''
     });
   }
 
-  onSubmitForm(gameForm:FormGroup) {
-    this.gameService.addGame(gameForm).subscribe(res =>
-      this.router.navigate(['games']));
+  onSubmitForm(gameForm: FormGroup) {
+
+    this.gameService.addGame(gameForm).subscribe(res => {
+        this.router.navigate(['games'])
+      },
+      (error) => {
+        console.log(error);
+        alert(error);
+      }
+    );
   }
 }

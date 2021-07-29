@@ -1,7 +1,8 @@
+
 <div class="row">
   <div class="col-xs-12">
     <div class="row" style="text-align: center;padding-top: 50px"
-         *ngIf="authService.isLoggedIn && userService.isAdmin()">
+         *ngIf="authService.isLoggedIn && (userService.isAdmin()|| userService.isModo())">
       <h2>Administration des jeux</h2>
       <div class="col-lg-8 offset-2" routerLinkActive="active">
         <span type="button" class="button"
@@ -9,16 +10,18 @@
         <span type="button" class="button"
               style="margin:10px " routerLink="">Restitution d'un jeu</span>
       </div>
-      <div class="row">
-        <div class="col-lg-4 offset-4">
-          <input type="text" id="game" placeholder="Rechercher un jeu..." class="form-control" formControlName="game">
-          <span type="button" class="button"
-                style="margin:10px " routerLink="">Rechercher</span>
-        </div>
-      </div>
+
     </div>
+
     <div class="row" style="text-align: center;padding: 50px">
       <h2>Liste de nos jeux</h2>
+    </div>
+    <div class="row">
+      <div class="col-lg-4 offset-4">
+        <input type="text" id="game" placeholder="Rechercher un jeu..." class="form-control" formControlName="game">
+        <span type="button" class="button"
+              style="margin:10px " routerLink="">Rechercher</span>
+      </div>
     </div>
     <div class="row">
       <div class="col-lg-3"
@@ -27,14 +30,18 @@
           <div>
             <h3>{{ game.name }}</h3>
             <p>{{ game.ageMin }} ans minimum</p>
-            <p> game id : {{game.id}}</p>
           </div>
           <div >
-            <button type="submit" class="btn btn-outline-dark" style="margin:10px "
-                    *ngIf="authService.isLoggedIn  && !userService.isAdmin()">Reserver
+            <button type="button" class="btn btn-outline-dark" style="margin:10px "
+                    *ngIf="authService.isLoggedIn  && game.available  "
+                    data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="navigateToDetails(game.id)">Plus d'infos
+            </button>
+
+            <button type="submit" class="btn btn-outline-danger" style="margin:10px "
+                    *ngIf="authService.isLoggedIn  && !game.available ">J'attends mon tour!
             </button>
             <button type="submit" class="btn btn-outline-dark" style="margin:10px "
-                    *ngIf="authService.isLoggedIn  && userService.isAdmin()" (click)= navigateToDetails(game.id)>Modifier
+                    *ngIf="authService.isLoggedIn  && (userService.isAdmin()|| userService.isModo())" (click)= navigateToDetails(game.id) >Modifier
             </button>
 
           </div>
@@ -43,3 +50,6 @@
     </div>
   </div>
 </div>
+
+
+

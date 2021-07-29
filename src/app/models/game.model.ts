@@ -1,15 +1,17 @@
-export class Game{
+import {GameStyleDto} from "./gameStyleDto.model";
+
+export class Game {
   private id!: number;
 
-  private  name!:string;
+  name!: string;
 
   private ageMin!: number;
-
-  private minPlayers!:number;
-  private maxPlayers!:number;
-  private  available!:boolean;
-  private duration!:number;
-  private rulesLink!: String ;
+  private gameStyleDto!: GameStyleDto;
+  private minPlayers!: number;
+  private maxPlayers!: number;
+  private available!: boolean;
+  private duration!: number;
+  private rulesLink!: string;
 
 
   constructor() {
