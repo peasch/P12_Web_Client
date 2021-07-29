@@ -1,67 +1,72 @@
 <section>
   <div class="container">
-    <h3> {{game.name}}</h3>
-    <p>{{game.description}}</p>
-    <span> âge minimum : {{game.ageMin}} ans</span><br>
-    <span>De {{game.minPlayers}} à {{game.minPlayers}} joueurs</span><br>
-    <span> Durée de la partie : moins de {{game.duration}} minutes</span><br>
-    <a href="{{game.rulesLink}}">comment jouer ?</a><br>
+    <div class="row">
+      <div class="col-4 offset-2">
+        <h3> {{game.name}}</h3>
+        <p>{{game.description}}</p>
+        <span> âge minimum : {{game.ageMin}} ans</span><br>
+        <span>De {{game.minPlayers}} à {{game.minPlayers}} joueurs</span><br>
+        <span> Durée de la partie : moins de {{game.duration}} minutes</span><br>
+        <a href="{{game.rulesLink}}">comment jouer ?</a><br>
 
-    <div *ngIf="authService.isLoggedIn && userService.isMember()">
-    <span type="submit" class="button" data-bs-toggle="modal" data-bs-target="#exampleModal"
-          style="margin: 20px;padding: 10px" *ngIf="authService.isLoggedIn  && game.available ">
+        <div *ngIf="authService.isLoggedIn && userService.isMember()">
+      <span type="submit" class="button" data-bs-toggle="modal" data-bs-target="#exampleModal"
+            style="margin: 20px;padding: 10px" *ngIf="authService.isLoggedIn  && game.available ">
       Emprunter
-    </span>
-      <button type="submit" class="btn btn-outline-danger" style="margin:10px "
-              *ngIf="authService.isLoggedIn  && !game.available ">J'attends mon tour!
-      </button>
-    </div>
-    <span type="submit" class="button" style="margin: 20px;padding: 10px"
-          (click)="navigateToGames()">retour</span>
-
-  </div>
-
-</section>
-
-
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        Confirmez la demande d'emprunt pour : {{game.name}}
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-        <span type="submit" class="button" data-bs-dismiss="modal" (click)="onBorrowingGame(game.id)">
-          Confirmer
-        </span>
-      </div>
-    </div>
-  </div>
-</div>
-<section>
-  <div class="container" *ngIf="authService.isLoggedIn  && (userService.isAdmin()|| userService.isModo())">
-    <h4>Ajouter une copie:
-    </h4>
-    <div class="col-lg-2" style="justify-content: center">
-      <form [formGroup]="copyForm" (ngSubmit)="onSubmitForm(copyForm.value)">
-        <div class="form-group">
-          <label for="code">code de la boite</label>
-          <input type="text" id="code" class="form-control" formControlName="code">
-        </div>
-        <div class="form-group">
-          <label for="game">jeu</label>
-          <input id="game" class="form-control" formControlName="game" value="{{game}}" hidden>
-        </div>
-        <span type="submit" class="button">Ajouter un exemplaire</span>
-      </form>
-    </div>
-    <span type="submit" class="button" data-bs-dismiss="modal" (click)="onModifyGame(game.id)">
+      </span>
+          <button type="submit" class="btn btn-outline-danger" style="margin:10px "
+                  *ngIf="authService.isLoggedIn  && !game.available ">J'attends mon tour!
+          </button>
+          <span type="submit" class="button" data-bs-dismiss="modal"
+                *ngIf="(userService.isAdmin()|| userService.isModo())"
+                (click)="onModifyGame(game.id)">
           Modifier le jeu
         </span>
+        </div>
+      </div>
+
+
+      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              Confirmez la demande d'emprunt pour : {{game.name}}
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+              <span type="submit" class="button" data-bs-dismiss="modal" (click)="onBorrowingGame(game.id)">
+          Confirmer
+        </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-4" *ngIf="authService.isLoggedIn  && (userService.isAdmin()|| userService.isModo())">
+        <div style="justify-content: center">
+          <div class="col-8">
+            <h4>Ajouter une copie:</h4>
+            <form [formGroup]="copyForm" (ngSubmit)="onSubmitForm(copyForm.value)">
+              <div class="form-group">
+                <label for="code">code de la boite</label>
+                <input type="text" id="code" class="form-control" formControlName="code">
+              </div>
+              <div class="form-group">
+                <label for="game">jeu</label>
+                <input id="game" class="form-control" formControlName="game" value="{{game}}" hidden>
+              </div>
+              <span type="submit" class="button">Ajouter un exemplaire</span>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container" style="text-align: center">
+  <span type="submit" class="button" style="margin: 20px;padding: 10px"
+        (click)="navigateToGames()">retour</span>
   </div>
 </section>

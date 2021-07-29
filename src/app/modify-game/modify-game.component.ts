@@ -1,11 +1,10 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {GameService} from "../services/game.service";
 import {AuthService} from "../services/auth.service";
 import {UserService} from "../services/user.service";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {GameStyleDto} from "../models/gameStyleDto.model";
-import {Game} from "../models/game.model";
 
 @Component({
   selector: 'app-modify-game',
@@ -15,7 +14,7 @@ import {Game} from "../models/game.model";
 export class ModifyGameComponent implements OnInit {
   gameForm!: FormGroup;
   username!: string | null;
-  game!:any;
+  game!: any;
 
   name!: string;
   gameStyles!: Set<GameStyleDto>;
@@ -29,37 +28,44 @@ export class ModifyGameComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.initForm();
-    const id = this.route.snapshot.params['id'];
-    this.gameService.getGameStyleList().subscribe(
-      gameStyles => this.gameStyles = gameStyles);
-    this.gameService.getGameById(+id).subscribe(game =>
-      this.game = game);
-
-    this.username = localStorage.getItem('username');
-
-  }
-
-  initForm() {
     this.gameForm = this.formBuilder.group({
       name: '',
       ageMin: '',
       gameStyleDto: this.formBuilder.group(
-        {
-          id: '',
-          name: ''
-        }
-      ),
+        {id: '',
+                     name: ''}),
       minPlayers: '',
       maxPlayers: '',
       duration: '',
       rulesLink: '',
       description: ''
     });
+    this.initForm();
+    this.gameService.getGameStyleList().subscribe(
+      gameStyles => this.gameStyles = gameStyles);
+    this.username = localStorage.getItem('username');
+
+  }
+
+  initForm() {
+    const id = this.route.snapshot.params['id'];
+
+    this.gameService.getGameById(+id).subscribe(
+      game => {
+      this.gameForm.patchValue({
+        'name': game?.name,
+        'ageMin': game?.ageMin,
+        'minPlayers': game?.minPlayers,
+        'maxPlayers': game?.maxPlayers,
+        'duration': game?.duration,
+        'rulesLink': game?.rulesLink,
+        'description': game?.description
+      })
+    });
   }
 
   onModifyGame(gameForm: FormGroup) {
 
-    console.log(gameForm.value['name']);
+    console.log(gameForm);
   }
 }
