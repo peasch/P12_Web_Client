@@ -16,7 +16,7 @@ export class ModifyGameComponent implements OnInit {
   gameForm!: FormGroup;
   username!: string | null;
   game!:any;
-  @Input()
+
   name!: string;
   gameStyles!: Set<GameStyleDto>;
 
