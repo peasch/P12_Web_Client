@@ -1,15 +1,28 @@
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<div>
-  <p> {{game.name}}</p>
+<section>
+  <div class="container">
+    <h3> {{game.name}}</h3>
+    <p>{{game.description}}</p>
+    <span> âge minimum : {{game.ageMin}} ans</span><br>
+    <span>De {{game.minPlayers}} à {{game.minPlayers}} joueurs</span><br>
+    <span> Durée de la partie : moins de {{game.duration}} minutes</span><br>
+    <a href="{{game.rulesLink}}">comment jouer ?</a><br>
 
-  <a href="{{game.rulesLink}}">comment jouer ?</a>
+    <div *ngIf="authService.isLoggedIn && userService.isMember()">
+    <span type="submit" class="button" data-bs-toggle="modal" data-bs-target="#exampleModal"
+          style="margin: 20px;padding: 10px" *ngIf="authService.isLoggedIn  && game.available ">
+      Emprunter
+    </span>
+      <button type="submit" class="btn btn-outline-danger" style="margin:10px "
+              *ngIf="authService.isLoggedIn  && !game.available ">J'attends mon tour!
+      </button>
+    </div>
+    <span type="submit" class="button" style="margin: 20px;padding: 10px"
+          (click)="navigateToGames()">retour</span>
 
-  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-    Emprunter
-  </button>
+  </div>
 
-</div>
-<button type="button" (click)="navigateToGames()">retour</button>
+</section>
+
 
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -23,26 +36,32 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="onBorrowingGame(game.id)">Confirmer</button>
+        <span type="submit" class="button" data-bs-dismiss="modal" (click)="onBorrowingGame(game.id)">
+          Confirmer
+        </span>
       </div>
     </div>
   </div>
 </div>
-
-<div class="container" *ngIf="authService.isLoggedIn  && (userService.isAdmin()|| userService.isModo())">
-  <h2>Ajouter une copie:
-  </h2>
-  <div class="col-sm-2 offset-2" style="justify-content: center">
-    <form [formGroup]="copyForm" (ngSubmit)="onSubmitForm(copyForm.value)">
-      <div class="form-group">
-        <label for="code">code de la boite</label>
-        <input type="text" id="code" class="form-control" formControlName="code">
-      </div>
-      <div class="form-group">
-        <label for="game">jeu</label>
-        <input  id="game" class="form-control" formControlName="game" value="{{game}}" hidden>
-      </div>
-      <button type="submit" class="btn btn-primary" style="margin:10px ">Ajouter un exemplaire</button>
-    </form>
+<section>
+  <div class="container" *ngIf="authService.isLoggedIn  && (userService.isAdmin()|| userService.isModo())">
+    <h4>Ajouter une copie:
+    </h4>
+    <div class="col-lg-2" style="justify-content: center">
+      <form [formGroup]="copyForm" (ngSubmit)="onSubmitForm(copyForm.value)">
+        <div class="form-group">
+          <label for="code">code de la boite</label>
+          <input type="text" id="code" class="form-control" formControlName="code">
+        </div>
+        <div class="form-group">
+          <label for="game">jeu</label>
+          <input id="game" class="form-control" formControlName="game" value="{{game}}" hidden>
+        </div>
+        <span type="submit" class="button">Ajouter un exemplaire</span>
+      </form>
+    </div>
+    <span type="submit" class="button" data-bs-dismiss="modal" (click)="onModifyGame(game.id)">
+          Modifier le jeu
+        </span>
   </div>
-</div>
+</section>

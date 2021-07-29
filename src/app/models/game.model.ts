@@ -5,14 +5,14 @@ export class Game {
 
   name!: string;
 
-  private ageMin!: number;
+  ageMin!: number;
   private gameStyleDto!: GameStyleDto;
-  private minPlayers!: number;
-  private maxPlayers!: number;
+  minPlayers!: number;
+  maxPlayers!: number;
   private available!: boolean;
-  private duration!: number;
-  private rulesLink!: string;
-
+  duration!: number;
+  rulesLink!: string;
+description!:string;
 
   constructor() {
   }

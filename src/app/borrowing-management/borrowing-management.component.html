@@ -1,19 +1,44 @@
 <section>
-  <div class="row">
-
-    <div class="col-lg-3" *ngFor="let borrowing of borrowings"
-         style="border: black solid 1px;margin: 30px;padding: 10px">
-      <div class="row">
+  <div class="container" *ngIf="unreturneds.length!==0">
+    <h3>Emprunts en cours</h3>
+    <div class="row">
+      <div class="col-lg-3" *ngFor="let borrowing of unreturneds"
+           style="border: black solid 1px;margin: 30px;padding: 10px">
+        <div class="row">
         <span
           style="text-decoration: black underline"> emprunteur : {{borrowing.borrowerDto.name}} {{borrowing.borrowerDto.firstname}}</span><br>
-        <span> jeu : {{borrowing.copyDto.game.name}} </span><br>
-        <span> copie : {{borrowing.copyDto.code}}</span><br>
-        <span>date d'emprunt : {{borrowing.date | date :'fullDate' :'':'fr-FR'}}</span><br>
-        <span>retour prévu: {{borrowing.returnDate | date :'fullDate' :'':'fr-FR'}}</span><br>
+          <span> jeu : {{borrowing.copyDto.game.name}} </span><br>
+          <span> copie : {{borrowing.copyDto.code}}</span><br>
+          <span>date d'emprunt : {{borrowing.date | date :'fullDate' :'':'fr-FR'}}</span><br>
+          <span>retour prévu: {{borrowing.returnDate | date :'fullDate' :'':'fr-FR'}}</span><br>
+        </div>
+        <button type="submit" class="btn btn-outline-dark" style="margin:10px "
+                (click)="onReturnBorrowing(borrowing.id)">Restituer
+        </button>
       </div>
-      <button type="submit" class="btn btn-outline-dark" style="margin:10px "
-              >Restituer
-      </button>
+    </div>
+  </div>
+</section>
+<section>
+  <div class="container" *ngIf="pendings.length!==0">
+    <h3>Demande d'emprunts en attente</h3>
+    <div class="row">
+      <div class="col-lg-3" *ngFor="let borrowing of pendings"
+           style="border: black solid 1px;margin: 30px;padding: 10px">
+        <div class="row">
+        <span
+          style="text-decoration: black underline"> Demandeur : {{borrowing.borrowerDto.name}} {{borrowing.borrowerDto.firstname}}</span><br>
+          <span> jeu : {{borrowing.copyDto.game.name}} </span><br>
+          <span> copie : {{borrowing.copyDto.code}}</span><br>
+
+        </div>
+        <button type="submit" class="btn btn-outline-dark" style="margin:10px "
+                (click)="onValidBorrowing(borrowing.id)">Valider
+        </button>
+        <button type="submit" class="btn btn-outline-dark" style="margin:10px "
+                (click)="onDeleteBorrowing(borrowing.id)">Supprimer
+        </button>
+      </div>
     </div>
   </div>
 </section>

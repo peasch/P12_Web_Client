@@ -10,13 +10,31 @@ import {BorrowingService} from "../services/borrowing.service";
 export class BorrowingManagementComponent implements OnInit {
 
   borrowings!:any[];
-
+unreturneds!:any[];
+pendings!:any[];
   constructor(private router:Router,
               public borrowingService:BorrowingService) { }
 
   ngOnInit(): void {
     this.borrowingService.getAllBorrowings().subscribe(borrowings =>
     this.borrowings=borrowings)
+    this.borrowingService.getUnreturnedBorrowings().subscribe(unreturned =>
+    this.unreturneds=unreturned);
+    this.borrowingService.getPendingBorrowings().subscribe(pendings =>
+    this.pendings=pendings);
   }
 
+  onReturnBorrowing(id:number){
+    this.borrowingService.returnBorrowing(id).subscribe(
+      res=>
+        this.ngOnInit());
+  }
+  onValidBorrowing(id:number){
+this.borrowingService.validBorrowing(id).subscribe(
+  res=>this.ngOnInit());
+  }
+  onDeleteBorrowing(id:number){
+    this.borrowingService.deleteBorrowingDemand(id).subscribe(res=>
+    this.ngOnInit());
+  }
 }

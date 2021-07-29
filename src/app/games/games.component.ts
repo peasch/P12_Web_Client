@@ -25,6 +25,7 @@ export class GamesComponent implements OnInit {
   this.gameService.getAllGames().subscribe(
     games =>
       this.games=games);
+
   }
 
   navigateToAddGame(){
@@ -36,6 +37,8 @@ export class GamesComponent implements OnInit {
   }
 
 
-
+  navigateToBorrowings(){
+    this.router.navigate(['emprunt']);
+  }
 
 }

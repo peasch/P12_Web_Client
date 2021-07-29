@@ -1,10 +1,7 @@
-<section *ngIf="authService.isLoggedIn">
-
-  <div class="red-divider"></div>
-
+<section style="margin: 30px">
   <div class="heading">
-    <h2>Profil personnel</h2>
     <div class="container">
+      <h2>Profil personnel</h2>
       <div class="row">
         <div class="red-divider"></div>
         <div class="container skillancien">
@@ -20,13 +17,46 @@
     </div>
   </div>
 </section>
-<section>
-  <h3>emprunts en cours</h3>
-  <div class="row">
-    <div class="col-lg-3" *ngFor="let borrowing of borrowings" style="border: black solid 1px;margin: 30px;padding: 10px">
-      <span>jeu : {{borrowing.copyDto.game.name}}</span><br>
-      <span>date d'emprunt : {{borrowing.date | date :'longDate' :'':'fr-FR'}}</span><br>
-      <span>retour prévu: {{borrowing.returnDate | date :'longDate' :'':'fr-FR'}}</span><br>
+<section *ngIf="pendings.length!==0" style="margin: 30px">
+  <div class="container">
+    <h3>demandes d'emprunt en attente</h3>
+    <div class="row">
+      <div class="col-lg-3" *ngFor="let borrowing of pendings"
+           style="border: black solid 1px;margin: 30px;padding: 10px">
+        <span>jeu : {{borrowing.copyDto.game.name}}</span><br>
+        <button type="submit" class="btn btn-outline-dark" style="margin:10px " (click)="onDeleteBorrowing(borrowing.id)"
+        >annuler
+        </button>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<section *ngIf="borrowings.length!==0" style="margin: 30px">
+  <div class="container">
+    <h3>emprunt en cours</h3>
+    <div class="row">
+      <div class="col-lg-3" *ngFor="let borrowing of borrowings"
+           style="border: black solid 1px;margin: 30px;padding: 10px">
+        <span>jeu : {{borrowing.copyDto.game.name}}</span><br>
+        <span>A rendre avant le : {{borrowing.returnDate | date :'fullDate' :'':'fr-FR'}}</span>
+      </div>
+    </div>
+  </div>
+</section>
+<section *ngIf="returneds.length!==0" style="margin: 30px">
+  <div class="container">
+    <h3>Précédents emprunts</h3>
+    <div class="row">
+      <div class="col-lg-3" *ngFor="let borrowing of returneds"
+           style="border: black solid 1px;margin: 30px;padding: 10px">
+        <span>jeu : {{borrowing.copyDto.game.name}}</span><br>
+        <span> rendu le : {{borrowing.returnDate | date :'fullDate' :'':'fr-FR'}}</span><br>
+        <button type="submit" class="btn btn-outline-dark" style="margin:10px " (click)="navigateToDetails(borrowing.copyDto.game.id)"
+        >fiche du jeu
+        </button>
+      </div>
     </div>
   </div>
 </section>

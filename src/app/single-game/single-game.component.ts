@@ -54,7 +54,9 @@ export class SingleGameComponent implements OnInit {
       });
 
   }
-
+onModifyGame(id:number){
+    this.router.navigate(['modifyGame/'+id])
+}
   navigateToGames() {
     this.router.navigate(['games']);
   }

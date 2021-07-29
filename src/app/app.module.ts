@@ -30,6 +30,7 @@ import {BorrowingService} from "./services/borrowing.service";
 import { registerLocaleData } from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
 import localeFrExtra from '@angular/common/locales/extra/fr';
+import { ModifyGameComponent } from './modify-game/modify-game.component';
 
 
 registerLocaleData(localeFr, 'fr-FR',localeFrExtra);
@@ -37,13 +38,14 @@ registerLocaleData(localeFr, 'fr-FR',localeFrExtra);
 const appRoutes: Routes = [
   {path:'registration', component:RegistrationComponent},
   {path:'login',component:LoginComponent},
-  {path:'profil',canActivate:[AuthGuard], component:ProfilComponent},
+  {path:'profil', component:ProfilComponent},
   {path:'games',component:GamesComponent},
   {path:'addGame',canActivate:[AuthGuard],component:AddingGameComponent},
-  {path:'singleGame/:id',canActivate:[AuthGuard],component:SingleGameComponent},
+  {path:'singleGame/:id',component:SingleGameComponent},
+  {path:'modifyGame/:id',component:ModifyGameComponent},
   {path:'emprunt',canActivate:[AuthGuard],component:BorrowingManagementComponent},
   {path:'home', component:HomeComponent},
-  {path:'userAdmin',component:UserManagementComponent},
+  {path:'userAdmin',canActivate:[AuthGuard],component:UserManagementComponent},
   {path:'not-found', component:FourOhFourComponent},
   {path:'',component:HomeComponent},
   {path:'**',redirectTo:'/not-found'}
@@ -63,6 +65,7 @@ const appRoutes: Routes = [
     AddingGameComponent,
     UserManagementComponent,
     BorrowingManagementComponent,
+    ModifyGameComponent,
 
 
 

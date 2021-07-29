@@ -63,6 +63,17 @@ export class UserService {
     return false;
 
   }
+  isMember(): boolean {
+    this.roles = this.getRoleOfToken();
+
+    for (let role of this.roles) {
+      if ((role.role === 'MODERATOR')||(role.role === 'MEMBER')||(role.role === 'ADMIN')) {
+        return true;
+      }
+    }
+    return false;
+
+  }
   getUsers(): Observable<Set<User>> {
     return this.http.get<any>(apiUrl + 'all');
 

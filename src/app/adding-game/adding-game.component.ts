@@ -43,7 +43,8 @@ export class AddingGameComponent implements OnInit {
       minPlayers: '',
       maxPlayers: '',
       duration: '',
-      rulesLink: ''
+      rulesLink: '',
+      description:''
     });
   }
 
