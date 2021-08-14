@@ -31,7 +31,18 @@ import { registerLocaleData } from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
 import localeFrExtra from '@angular/common/locales/extra/fr';
 import { ModifyGameComponent } from './modify-game/modify-game.component';
-
+import { AdvicesComponent } from './advices/advices.component';
+import {AdviceService} from "./services/advice.service";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatSliderModule } from '@angular/material/slider';
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatInputModule} from "@angular/material/input";
+import {MatIconModule} from "@angular/material/icon";
+import {MatCardModule} from "@angular/material/card";
+import { VideoComponent } from './video/video.component';
+import { YouTubePlayerModule } from '@angular/youtube-player';
+import { UserModifyComponent } from './user-modify/user-modify.component';
+import {RoleService} from "./services/role.service";
 
 registerLocaleData(localeFr, 'fr-FR',localeFrExtra);
 
@@ -46,6 +57,7 @@ const appRoutes: Routes = [
   {path:'emprunt',canActivate:[AuthGuard],component:BorrowingManagementComponent},
   {path:'home', component:HomeComponent},
   {path:'userAdmin',canActivate:[AuthGuard],component:UserManagementComponent},
+  {path:'userUpdate/:id',canActivate:[AuthGuard],component:UserModifyComponent},
   {path:'not-found', component:FourOhFourComponent},
   {path:'',component:HomeComponent},
   {path:'**',redirectTo:'/not-found'}
@@ -66,8 +78,9 @@ const appRoutes: Routes = [
     UserManagementComponent,
     BorrowingManagementComponent,
     ModifyGameComponent,
-
-
+    AdvicesComponent,
+    VideoComponent,
+    UserModifyComponent,
 
   ],
   imports: [
@@ -79,9 +92,18 @@ const appRoutes: Routes = [
     ModalModule,
     JwtModule.forRoot({
       config: {
-        tokenGetter:  () => localStorage.getItem('token')
+        tokenGetter: () => localStorage.getItem('token')
       }
-    })
+    }),
+    BrowserAnimationsModule,
+    MatSliderModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatIconModule,
+    MatCardModule,
+    YouTubePlayerModule,
+
+
   ],
   providers: [
     UserService,
@@ -94,6 +116,8 @@ const appRoutes: Routes = [
     GameService,
     CopyService,
     BorrowingService,
+    AdviceService,
+    RoleService,
     AuthGuard
   ],
   bootstrap: [AppComponent]

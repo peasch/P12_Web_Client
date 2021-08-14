@@ -1,22 +1,28 @@
 <section *ngIf="authService.isLoggedIn">
-
-  <div class="red-divider"></div>
-
-  <div class="heading">
-    <h2>Gestion des utilisateurs</h2>
-    <div class="container">
-      <div class="row">
-        <div class="red-divider"></div>
-
-        <div class="col" *ngFor="let users of users" style="border: solid black 1px;margin:10px;padding: 10px">
-          <span> Nom: {{users.name}}</span><br>
-          <span> Prénom: {{users.firstname}}</span><br>
-          <span>Rôle:<span *ngFor="let role of users.rolesDto"> {{role.role}}</span></span><br>
-          <button type="submit" class="btn btn-outline-dark" style="margin:10px "
-                  *ngIf="authService.isLoggedIn  && userService.isAdmin()">Modifier le rôle
-          </button>
-        </div>
-      </div>
+  <div class="container">
+    <div class="row" style="text-align: center;margin: 50px">
+      <h1>Gestion des utilisateurs</h1>
     </div>
+  </div>
+
+</section>
+<section *ngIf="authService.isLoggedIn">
+  <div class="container">
+    <mat-card class="example-card" *ngFor="let users of users; let i = index"
+              style="margin: 20px;box-shadow:0 1px 10px rgba(0 ,0, 0,19);display: inline-flex ">
+
+      <mat-card-header>
+        <mat-card-title>{{ users.name }}<br>{{users.firstname}}</mat-card-title>
+      </mat-card-header>
+
+      <mat-card-actions>
+        <button type="submit" class="btn btn-outline-dark" style="margin:auto 10px"
+                (click)="navigateToUserUpdate(users.id)"
+                *ngIf="authService.isLoggedIn  && userService.isAdmin()">Modifier l'utilisateur
+        </button>
+
+      </mat-card-actions>
+
+    </mat-card>
   </div>
 </section>

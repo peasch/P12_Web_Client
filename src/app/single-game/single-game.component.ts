@@ -7,7 +7,7 @@ import {CopyService} from "../services/copy.service";
 import {AuthService} from "../services/auth.service";
 import {UserService} from "../services/user.service";
 import {BorrowingService} from "../services/borrowing.service";
-import {Observable} from "rxjs";
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-single-game',
@@ -18,6 +18,8 @@ export class SingleGameComponent implements OnInit {
   copyForm!: FormGroup;
   username!: string | null;
   game!: any;
+  gameId!:number;
+  rulesLink!:SafeResourceUrl;
 
 
   constructor(private router: Router,
@@ -27,17 +29,20 @@ export class SingleGameComponent implements OnInit {
               public authService: AuthService,
               public userService: UserService,
               private borrowingService: BorrowingService,
-              private formBuilder: FormBuilder
+              private formBuilder: FormBuilder,
+              public sanitizer: DomSanitizer
   ) {
 
   }
 
   ngOnInit(): void {
     this.initForm();
-    const id = this.route.snapshot.params['id'];
-    this.gameService.getGameById(+id).subscribe(game =>
+    this.gameId = this.route.snapshot.params['id'];
+    this.gameService.getGameById(this.gameId).subscribe(game =>
       this.game = game);
+
     this.username = localStorage.getItem('username');
+    this.rulesLink= this.sanitizer.bypassSecurityTrustResourceUrl(this.game.rulesLink);
   }
 
   initForm() {

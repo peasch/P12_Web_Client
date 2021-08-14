@@ -1,14 +1,45 @@
+<section *ngIf="authService.isLoggedIn &&(userService.isAdmin()|| userService.isModo())">
+  <div class="container">
+    <div class="row" style="margin: 30px">
+      <div class="col-4 offset-2" style="text-align: center">
+    <span type="submit" class="button" (click)="onModifyGame(game.id)">
+          Modifier le jeu</span>
+      </div>
+      <div class="col-4">
+        <form [formGroup]="copyForm" (ngSubmit)="onSubmitForm(copyForm.value)">
+          <div class="form-group">
+            <label for="code">code de la boite</label>
+            <input type="text" id="code" class="form-control" formControlName="code">
+          </div>
+          <div class="form-group">
+            <label for="game" hidden>jeu</label>
+            <input id="game" class="form-control" formControlName="game" value="{{game}}" hidden>
+          </div>
+          <span type="submit" class="button" (click)="onSubmitForm(copyForm.value)">Ajouter un exemplaire</span>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section>
   <div class="container">
-    <div class="row">
+    <div class="row" style="margin: 30px">
       <div class="col-4 offset-2">
+        <p>
+          <img style="max-width: 200px;height: auto" src="{{game.coverLink}}"/>
+        </p>
         <h3> {{game.name}}</h3>
-        <p>{{game.description}}</p>
+
         <span> âge minimum : {{game.ageMin}} ans</span><br>
         <span>De {{game.minPlayers}} à {{game.minPlayers}} joueurs</span><br>
         <span> Durée de la partie : moins de {{game.duration}} minutes</span><br>
-        <a href="{{game.rulesLink}}">comment jouer ?</a><br>
-
+        <span *ngIf="game.gameStyleDto!=null"> genre de jeu : {{game.gameStyleDto.name}}</span>
+      </div>
+      <div class="col-4">
+        <div>
+          <p>{{game.description}}</p>
+        </div>
         <div *ngIf="authService.isLoggedIn && userService.isMember()">
       <span type="submit" class="button" data-bs-toggle="modal" data-bs-target="#exampleModal"
             style="margin: 20px;padding: 10px" *ngIf="authService.isLoggedIn  && game.available ">
@@ -17,11 +48,7 @@
           <button type="submit" class="btn btn-outline-danger" style="margin:10px "
                   *ngIf="authService.isLoggedIn  && !game.available ">J'attends mon tour!
           </button>
-          <span type="submit" class="button" data-bs-dismiss="modal"
-                *ngIf="(userService.isAdmin()|| userService.isModo())"
-                (click)="onModifyGame(game.id)">
-          Modifier le jeu
-        </span>
+
         </div>
       </div>
 
@@ -46,27 +73,15 @@
         </div>
       </div>
       <div class="col-4" *ngIf="authService.isLoggedIn  && (userService.isAdmin()|| userService.isModo())">
-        <div style="justify-content: center">
-          <div class="col-8">
-            <h4>Ajouter une copie:</h4>
-            <form [formGroup]="copyForm" (ngSubmit)="onSubmitForm(copyForm.value)">
-              <div class="form-group">
-                <label for="code">code de la boite</label>
-                <input type="text" id="code" class="form-control" formControlName="code">
-              </div>
-              <div class="form-group">
-                <label for="game">jeu</label>
-                <input id="game" class="form-control" formControlName="game" value="{{game}}" hidden>
-              </div>
-              <span type="submit" class="button">Ajouter un exemplaire</span>
-            </form>
-          </div>
-        </div>
+
       </div>
     </div>
   </div>
+  <app-advices [id]="gameId" *ngIf="authService.isLoggedIn && userService.isMember()"></app-advices>
   <div class="container" style="text-align: center">
   <span type="submit" class="button" style="margin: 20px;padding: 10px"
         (click)="navigateToGames()">retour</span>
   </div>
 </section>
+
+

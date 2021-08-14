@@ -34,6 +34,9 @@ export class RegistrationComponent implements OnInit {
       username: ''
     });
   }
+  onNavigateToLogin(){
+    this.router.navigate(['login']);
+  }
 
   onSubmitForm(userForm:FormGroup) {
 

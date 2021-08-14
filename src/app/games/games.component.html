@@ -1,53 +1,73 @@
-<section style="background-color: lightgrey;padding-bottom: 30px">
-  <div class="row" style="text-align: center;padding-top: 50px"
-       *ngIf="authService.isLoggedIn && (userService.isAdmin()|| userService.isModo())">
-    <h2>Administration des jeux</h2>
-    <div class="col" routerLinkActive="active" style="text-align: center">
+<div class="container" style="border: 1px solid black;box-shadow: 0 1px 7px rgba(0 ,0, 0,19)"
+     *ngIf="authService.isLoggedIn && (userService.isAdmin()|| userService.isModo())">
+  <div class="row" style="text-align: center;padding-top: 30px">
+    <div class="col-6">
+      <h2>Administration des jeux</h2>
+      <div class="col" routerLinkActive="active" style="text-align: center">
         <span type="button" class="button"
               style="margin:10px" (click)="navigateToAddGame()">Ajouter un jeu</span>
-      <span type="button" class="button"
-            style="margin:10px " (click)="navigateToBorrowings()">Restitution d'un jeu</span>
+        <span type="button" class="button"
+              style="margin:10px " (click)="navigateToBorrowings()">Restitution d'un jeu</span>
+      </div>
+    </div>
+    <div class="col-6" style="text-align: center;justify-content: center">
+      <div>
+        <input style="width: 300px;margin: 0 auto" type="text" id="game" placeholder="Rechercher un jeu..."
+               class="form-control" formControlName="game">
+        <span type="button" class="button"
+              style="margin:10px " routerLink="">Rechercher</span>
+      </div>
     </div>
 
   </div>
-</section>
-<section>
+</div>
+<div class="container" style="border: 1px solid black;box-shadow: 0 10px 20px rgba(0 ,0, 0,19)"
+     *ngIf="!authService.isLoggedIn
+         ||(authService.isLoggedIn &&!(userService.isAdmin()|| userService.isModo()))">
   <div class="row" style="text-align: center;padding: 50px">
     <h2>Liste de nos jeux</h2>
   </div>
   <div class="container">
     <div class="row">
-      <div class="col-4  offset-4">
-        <input type="text" id="game" placeholder="Rechercher un jeu..." class="form-control" formControlName="game">
+      <div class="col-4  offset-4" style="text-align: center">
+        <input type="text" id="game" placeholder="Rechercher un jeu..."
+               class="form-control" formControlName="game">
         <span type="button" class="button"
               style="margin:10px " routerLink="">Rechercher</span>
       </div>
     </div>
   </div>
-  <div class="containter">
-    <div class="row">
-      <div class="col-xl-2 col-lg-3 col-md-4 col-sm-8" *ngFor="let game of games; let i = index"
-           style="border: black solid 1px;margin: 30px;padding: 10px">
-        <div>
-          <div>
-            <h3>{{ game.name }}</h3>
-            <p>A partir de {{ game.ageMin }} ans</p>
-          </div>
-          <div>
-            <button type="button" class="btn btn-outline-dark" style="margin:10px "
-                    *ngIf="authService.isLoggedIn && game.available "
-                    data-bs-toggle="modal" data-bs-target="#exampleModal"
-                    (click)="navigateToDetails(game.id)">Plus d'infos
-            </button>
-            <button type="button" class="btn btn-outline-danger" style="margin:10px "
-                    *ngIf="authService.isLoggedIn && !game.available"
-                    data-bs-toggle="modal" data-bs-target="#exampleModal"
-                    (click)="navigateToDetails(game.id)">Plus d'infos
-            </button>
-          </div>
-        </div>
+</div>
+<section>
+  <div class="container">
+    <mat-card class="example-card" *ngFor="let game of games; let i = index"
+              style="margin: 20px;box-shadow:0 1px 10px rgba(0 ,0, 0,19);display: inline-flex ">
+      <div>
+        <mat-card-header>
+          <mat-card-title>{{ game.name }}</mat-card-title>
+        </mat-card-header>
+        <img style="max-width: 80px;height: auto;margin: 20px" src="{{game.coverLink}}"/>
       </div>
-    </div>
+      <div>
+        <mat-card-content style="padding-top: 30px">
+          <p>
+            {{game.description}}
+          </p>
+        </mat-card-content>
+        <mat-card-actions>
+          <button type="button" class="btn btn-outline-dark" style="margin:10px "
+                  *ngIf="game.available "
+                  data-bs-toggle="modal" data-bs-target="#exampleModal"
+                  (click)="navigateToDetails(game.id)">Plus d'infos
+          </button>
+          <button type="button" class="btn btn-outline-danger" style="margin:10px "
+                  *ngIf="!game.available"
+                  data-bs-toggle="modal" data-bs-target="#exampleModal"
+                  (click)="navigateToDetails(game.id)">Plus d'infos
+          </button>
+        </mat-card-actions>
+      </div>
+    </mat-card>
   </div>
 </section>
 

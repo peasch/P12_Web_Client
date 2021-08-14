@@ -1,0 +1,35 @@
+<section style="margin: 50px">
+   <div class="container">
+    <div class="row">
+      <div class="col-lg-6 offset-2">
+        <div *ngFor="let advice of advices;let i=index"
+             style="display: block;border: 1px solid black;margin: 5px;padding: 10px;background-color: white">
+          <div>
+            <span><strong>{{ advice.user.username }}</strong></span><span> a mis la note de  {{advice.rating}}
+            / 5</span><br>
+            <div style="margin: 5px 30px">{{ advice.commentary }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="col-lg-4 offset-2">
+      <form [formGroup]="adviceForm">
+        <div class="form-group">
+          <label for="commentary">commentaire:</label>
+          <textarea id="commentary" class="form-control" formControlName="commentary"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="username" hidden>Nom d'utilisateur</label>
+          <input type="text" id="username" class="form-control" placeholder="{{username}}" formControlName="username" hidden>
+        </div>
+        <div class="form-group">
+          <label for="rating">note (1-5)</label>
+          <input type="number" min="1" max="5" id="rating" class="form-control" formControlName="rating">
+        </div>
+        <span type="submit" class="button" (click)="onSubmitForm(adviceForm.value)">Envoyer votre commentaire</span>
+      </form>
+    </div>
+  </div>
+</section>

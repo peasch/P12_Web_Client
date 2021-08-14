@@ -15,7 +15,7 @@ export class ModifyGameComponent implements OnInit {
   gameForm!: FormGroup;
   username!: string | null;
   game!: any;
-
+  id!: number;
   name!: string;
   gameStyles!: Set<GameStyleDto>;
 
@@ -29,16 +29,20 @@ export class ModifyGameComponent implements OnInit {
 
   ngOnInit(): void {
     this.gameForm = this.formBuilder.group({
+      id: '',
       name: '',
       ageMin: '',
       gameStyleDto: this.formBuilder.group(
-        {id: '',
-                     name: ''}),
+        {
+          id: '',
+          name: ''
+        }),
       minPlayers: '',
       maxPlayers: '',
       duration: '',
       rulesLink: '',
-      description: ''
+      description: '',
+      coverLink: ''
     });
     this.initForm();
     this.gameService.getGameStyleList().subscribe(
@@ -48,24 +52,33 @@ export class ModifyGameComponent implements OnInit {
   }
 
   initForm() {
-    const id = this.route.snapshot.params['id'];
+    this.id = this.route.snapshot.params['id'];
 
-    this.gameService.getGameById(+id).subscribe(
+    this.gameService.getGameById(+this.id).subscribe(
       game => {
-      this.gameForm.patchValue({
-        'name': game?.name,
-        'ageMin': game?.ageMin,
-        'minPlayers': game?.minPlayers,
-        'maxPlayers': game?.maxPlayers,
-        'duration': game?.duration,
-        'rulesLink': game?.rulesLink,
-        'description': game?.description
-      })
-    });
+        this.gameForm.patchValue({
+          'id': game?.id,
+          'name': game?.name,
+          'ageMin': game?.ageMin,
+          'minPlayers': game?.minPlayers,
+          'maxPlayers': game?.maxPlayers,
+          'duration': game?.duration,
+          'rulesLink': game?.rulesLink,
+          'description': game?.description,
+          'gameStyleDto':game?.gameStyleDto,
+          'coverLink':game?.coverLink
+        })
+      });
   }
 
   onModifyGame(gameForm: FormGroup) {
 
     console.log(gameForm);
+    this.gameService.updateGame(gameForm).subscribe(res => {
+        this.router.navigate(['singleGame/' + this.id]);
+      }, error => {
+        console.log(error)
+      }
+    )
   }
 }

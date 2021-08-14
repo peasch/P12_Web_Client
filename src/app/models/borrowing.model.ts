@@ -7,10 +7,10 @@ export class Borrowing{
 
   private borrowerDto!: User;
 
-  private copyDto!:Copy;
+  copyDto!:Copy;
 
   private date!:Date;
-  private returnDate!:Date;
+  returnDate!:Date;
 
 constructor() {
 }

@@ -12,6 +12,7 @@ export class BorrowingManagementComponent implements OnInit {
   borrowings!:any[];
 unreturneds!:any[];
 pendings!:any[];
+returneds!:any[];
   constructor(private router:Router,
               public borrowingService:BorrowingService) { }
 
@@ -22,6 +23,9 @@ pendings!:any[];
     this.unreturneds=unreturned);
     this.borrowingService.getPendingBorrowings().subscribe(pendings =>
     this.pendings=pendings);
+    this.borrowingService.getReturnedBorrowings().subscribe(returned=>
+      this.returneds=returned);
+
   }
 
   onReturnBorrowing(id:number){

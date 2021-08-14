@@ -4,6 +4,7 @@ import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {JwtHelperService} from '@auth0/angular-jwt';
 import {Role} from "../models/role.model";
+import {FormGroup} from "@angular/forms";
 
 
 const apiUrl = 'http://localhost:8989/user/';
@@ -41,6 +42,10 @@ export class UserService {
 
   }
 
+  getUserDatasById(id:number): Observable<User> {
+    return this.http.get<any>(apiUrl +id);
+
+  }
   isAdmin(): boolean {
     this.roles = this.getRoleOfToken();
 
@@ -77,6 +82,17 @@ export class UserService {
   getUsers(): Observable<Set<User>> {
     return this.http.get<any>(apiUrl + 'all');
 
+  }
+
+  addRoleToUser(form:FormGroup,id:number):Observable<any>{
+   return this.http.put(apiUrl+ "addRole/"+id,form);
+  }
+  removeRoleToUser(id:number,user:User):Observable<any>{
+    return this.http.put(apiUrl+ "removeRole/"+id,user);
+  }
+
+  deleteUser(id:number):Observable<any>{
+    return this.http.delete(apiUrl + "delete/"+ id);
   }
 }
 

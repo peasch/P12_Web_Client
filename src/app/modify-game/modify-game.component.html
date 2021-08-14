@@ -3,7 +3,6 @@
   <div class="container">
     <div class="col-sm-4 offset-4" style="justify-content: center">
       <form [formGroup]="gameForm" >
-
         <div class="form-group">
           <label for="name">nom</label>
           <input type="text" id="name" placeholder="name"  class="form-control" formControlName="name">
@@ -32,6 +31,10 @@
           <label for="description">Description</label>
           <textarea id="description" class="form-control" placeholder="description"
                     formControlName="description" rows="8" cols="30"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="coverLink">Lien vers l'image du jeu</label>
+          <input type="text" id="coverLink" placeholder="rulesLink"class="form-control" formControlName="coverLink">
         </div>
         <div formGroupName="gameStyleDto">
 

@@ -3,6 +3,7 @@ import {User} from "../models/user.model";
 import {Router} from "@angular/router";
 import {AuthService} from "../services/auth.service";
 import {UserService} from "../services/user.service";
+import {BorrowingService} from "../services/borrowing.service";
 
 @Component({
   selector: 'app-user-management',
@@ -12,8 +13,10 @@ import {UserService} from "../services/user.service";
 export class UserManagementComponent implements OnInit {
   token!: string | null;
   users!:Set<User>;
+  free!:boolean;
   constructor(private router: Router,
               public authService: AuthService,
+
               public userService: UserService) { }
 
   ngOnInit(): void {
@@ -22,6 +25,10 @@ export class UserManagementComponent implements OnInit {
     this.userService.getUsers().subscribe(users =>
       this.users=users);
 
+  }
+
+  navigateToUserUpdate(id:number){
+    this.router.navigate(['userUpdate/'+id]);
   }
 
 }

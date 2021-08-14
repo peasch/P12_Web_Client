@@ -1,5 +1,5 @@
 
-<nav class="navbar navbar-expand navbar-light bg-light"style=" background: linear-gradient(180deg, #ff7423,white);">
+<nav class="navbar navbar-expand navbar-light bg-light">
   <div class="container">
     <a class="navbar-brand" routerLink="">
       <img [src]="cheminImage" alt="" width="70" height="50"class="d-inline-block" style="">
@@ -13,20 +13,19 @@
         <li class="nav-item" routerLinkActive="active">
           <a class="nav-link" routerLink="">Jeux-à-gogo.fr</a>
         </li>
-
         <li class="nav-item"  routerLinkActive="active">
           <a class="nav-link" routerLink="games">Nos jeux</a>
         </li>
-        <li class="nav-item" routerLinkActive="active">
-          <a class="nav-link" routerLink="snake">404</a>
+        <li class="nav-item dropdown" *ngIf="authService.isLoggedIn && (userService.isAdmin()||userService.isModo())"  >
+          <a class="nav-link dropdown-toggle"href="#" id="navbarDropdownMenuLink" role="button"
+             data-bs-toggle="dropdown" aria-expanded="false" >Administration</a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <li><a class="dropdown-item"*ngIf="authService.isLoggedIn && userService.isAdmin()"
+                   routerLink="userAdmin">Utilisateurs</a></li>
+            <li><a class="dropdown-item" routerLink="emprunt">Emprunt(s)</a></li>
+            <a class="nav-link" routerLink="snake">404</a>
+          </ul>
         </li>
-        <li class="nav-item" *ngIf="authService.isLoggedIn && userService.isAdmin()" routerLinkActive="active"  >
-          <a class="nav-link" routerLink="userAdmin">Admin</a>
-        </li>
-        <li class="nav-item" *ngIf="authService.isLoggedIn && (userService.isAdmin()||userService.isModo())" routerLinkActive="active"  >
-          <a class="nav-link" routerLink="emprunt">emprunt(s)</a>
-        </li>
-
       </ul>
       <div class="navbar ml-auto">
         <ul class="navbar-nav ml-auto mb-2 mb-lg-0">

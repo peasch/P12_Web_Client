@@ -10,14 +10,20 @@ export class BorrowingService {
 
   constructor(private http: HttpClient) {
   }
+
 //---------------------ALL ----------------------------
 
   getAllBorrowings(): Observable<any[]> {
     return this.http.get<any[]>(apiUrl + 'all');
   }
+  getReturnedBorrowings():Observable<any[]>{
+    return this.http.get<any[]>(apiUrl + 'returned');
+  }
+
   getUnreturnedBorrowings(): Observable<any[]> {
     return this.http.get<any[]>(apiUrl + 'unreturned');
   }
+
   getPendingBorrowings(): Observable<any[]> {
     return this.http.get<any[]>(apiUrl + 'allPending');
   }
@@ -27,32 +33,38 @@ export class BorrowingService {
   getAllBorrowingsByUsername(username: string | null): Observable<any[]> {
     return this.http.get<any[]>(apiUrl + username);
   }
+
   getPendingBorrowingsByUsername(username: string | null): Observable<any[]> {
-    return this.http.get<any[]>(apiUrl + 'pending/' +username);
+    return this.http.get<any[]>(apiUrl + 'pending/' + username);
   }
 
   getReturnedBorrowingsByUsername(username: string | null): Observable<any[]> {
-    return this.http.get<any[]>(apiUrl + 'returned/' +username);
+    return this.http.get<any[]>(apiUrl + 'returned/' + username);
   }
+
   getUnreturnedBorrowingsByUsername(username: string | null): Observable<any[]> {
-    return this.http.get<any[]>(apiUrl + 'unreturned/' +username);
+    return this.http.get<any[]>(apiUrl + 'unreturned/' + username);
   }
+
   //--------------------Management --------------------------------------
 
-  addBorrowingDemand(gameId: number, username: string | null):Observable<any>{
+  addBorrowingDemand(gameId: number, username: string | null): Observable<any> {
 
-    return this.http.post<any>(apiUrl+'add/'+gameId,username);
+    return this.http.post<any>(apiUrl + 'add/' + gameId, username);
   }
 
-  deleteBorrowingDemand(gamedId:number):Observable<any>{
-    return this.http.delete<any>(apiUrl + 'delete/'+ gamedId);
+  deleteBorrowingDemand(gamedId: number): Observable<any> {
+    return this.http.delete<any>(apiUrl + 'delete/' + gamedId);
   }
 
-  returnBorrowing(id:number):Observable<any>{
+  returnBorrowing(id: number): Observable<any> {
     return this.http.get<any>(apiUrl + 'return/' + id);
   }
-  validBorrowing(id:number):Observable<any>{
+
+  validBorrowing(id: number): Observable<any> {
     return this.http.get<any>(apiUrl + 'valid/' + id);
   }
+
+
 
 }
