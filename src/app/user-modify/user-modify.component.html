@@ -1,0 +1,87 @@
+<section>
+  <div class="container" style="text-align: center;">
+    <h2>{{user.name}} {{user.firstname}} // {{user.username}}</h2>
+    <mat-card class="example-card" *ngFor="let role of user.rolesDto; let i = index"
+              style="margin: 20px;box-shadow:0 1px 10px rgba(0 ,0, 0,19);display: inline-flex ">
+      <div>
+        <mat-card-header>
+          <mat-card-title>{{ role.role }}</mat-card-title>
+        </mat-card-header>
+      </div>
+      <div>
+
+        <mat-card-actions>
+          <button type="button" class="btn btn-outline-dark" style="margin:10px " (click)="onRemoveRoleOfUser(role.id)">
+            supprimer
+          </button>
+        </mat-card-actions>
+      </div>
+    </mat-card>
+  </div>
+</section>
+<section>
+  <div class="container" style="text-align: center;">
+    <div class="col-sm-8 offset-2" style="justify-content: center">
+      <form [formGroup]="userUpdateForm">
+        <div class="form-group">
+          <label for="id">role</label><br>
+          <select name="id" id="id" formControlName="id">
+            <option *ngFor="let role of roles" value="{{role.id}}">{{role.role}}</option>
+          </select>
+          <span type="submit" class="button"
+                (click)="onSubmitForm(userUpdateForm.value)" style="margin:10px ">Promouvoir
+          </span>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+<section>
+  <div class="container" style="text-align: center;" *ngIf="this.user.free">
+    <button type="button" class="btn btn-outline-dark" style="margin:10px "
+            data-bs-toggle="modal" data-bs-target="#exampleModal">supprimer l'utilisateur
+    </button>
+  </div>
+  <div class="container" style="text-align: center;" *ngIf="!this.user.free">
+    <button type="button" class="btn btn-outline-dark" style="margin:10px "
+            data-bs-toggle="modal" data-bs-target="#exampleModal" disabled>suppression impossible
+    </button>
+  </div>
+  <div class="container" style="text-align: center;" >
+  <span type="submit" class="button" style="margin: 20px;padding: 10px"
+        (click)="onNavigateToUsersManagement()">retour</span>
+  </div>
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          Confirmez la suppression de l'utilisateur : {{user.username}}
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+          <span type="submit" class="button" data-bs-dismiss="modal" (click)="onDeleteUser(user.id)">
+          Confirmer
+        </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section *ngIf="borrowings.length!==0" style="margin: 30px">
+  <div class="container">
+    <h3>Précédents emprunts</h3>
+    <div class="row">
+      <div class="col-lg-3" *ngFor="let borrowing of borrowings"
+           style="border: black solid 1px;margin: 30px;padding: 10px">
+        <span>jeu : {{borrowing.copyDto.game.name}}</span><br>
+        <span> rendu le : {{borrowing.returnDate | date :'fullDate' :'':'fr-FR'}}</span><br>
+        <button type="submit" class="btn btn-outline-dark" style="margin:10px ">fiche du jeu
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
