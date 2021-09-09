@@ -10,15 +10,17 @@ import {
 import { Observable, throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import {CookieService} from "ngx-cookie-service";
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
 
-  constructor(private router: Router) {}
+  constructor(private router: Router,
+              private cookieService:CookieService) {}
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-    const token = localStorage.getItem('token');
+    const token = sessionStorage.getItem('token');
 
     if (token) {
       request = request.clone({
@@ -49,9 +51,12 @@ export class TokenInterceptor implements HttpInterceptor {
       catchError((error: HttpErrorResponse) => {
         console.log(error);
         if (error.status === 401) {
-          this.router.navigate(['login']);
+          alert(error.error);
+          this.router.navigate(['']);
         }
         if (error.status === 400) {
+          alert(error.error);
+        } if (error.status === 403) {
           alert(error.error);
         }
         return throwError(error);

@@ -1,8 +1,7 @@
-
 <nav class="navbar navbar-expand navbar-light bg-light">
   <div class="container">
     <a class="navbar-brand" routerLink="">
-      <img [src]="cheminImage" alt="" width="70" height="50"class="d-inline-block" style="">
+      <img [src]="cheminImage" alt="" width="70" height="50" class="d-inline-block" style="">
     </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -13,33 +12,60 @@
         <li class="nav-item" routerLinkActive="active">
           <a class="nav-link" routerLink="">Jeux-à-gogo.fr</a>
         </li>
-        <li class="nav-item"  routerLinkActive="active">
-          <a class="nav-link" routerLink="games">Nos jeux</a>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownGameLink" role="button"
+             data-bs-toggle="dropdown" aria-expanded="false" data-display="static">Jeux</a>
+          <ul class="dropdown-menu multi-level">
+            <li><a class="dropdown-item" routerLink="games">Tous les jeux</a></li>
+            <li class="dropdown-submenu">
+              <a class="dropdown-item" tabindex="-1" routerLink="">Par genre</a>
+              <ul class="dropdown-menu">
+                <li class="dropdown-item" *ngFor="let style of styles;let i=index">
+                  <a class="nav-link" tabindex="-1" routerLink="" (click)="onNavigateToStyleResearch(style.id)">{{style.name}}</a></li>
+              </ul>
+            </li>
+            <li class="dropdown-submenu">
+              <a class="dropdown-item" tabindex="-1" routerLink="">Par âge</a>
+              <ul class="dropdown-menu">
+                <li class="dropdown-item"*ngFor="let age of ages;let i=index">
+                  <a class="nav-link" tabindex="-1" routerLink="" (click)="onNavigateToAgeResearch(age)">{{age}} ans</a></li>
+              </ul>
+            </li>
+            <li class="dropdown-submenu">
+              <a class="dropdown-item" tabindex="-1" routerLink="">Par nombre de joueurs</a>
+              <ul class="dropdown-menu">
+                <li class="dropdown-item"*ngFor="let min of minP;let i=index">
+                  <a class="nav-link" tabindex="-1" routerLink="" (click)="onNavigateToPlayersResearch(min)">{{min}} joueurs</a></li>
+              </ul>
+            </li>
+          </ul>
+
         </li>
-        <li class="nav-item dropdown" *ngIf="authService.isLoggedIn && (userService.isAdmin()||userService.isModo())"  >
-          <a class="nav-link dropdown-toggle"href="#" id="navbarDropdownMenuLink" role="button"
-             data-bs-toggle="dropdown" aria-expanded="false" >Administration</a>
+        <li class="nav-item dropdown" *ngIf="authService.isLoggedIn && (userService.isAdmin()||userService.isModo())">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+             data-bs-toggle="dropdown" aria-expanded="false">Administration</a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <li><a class="dropdown-item"*ngIf="authService.isLoggedIn && userService.isAdmin()"
+            <li><a class="dropdown-item" *ngIf="authService.isLoggedIn && userService.isAdmin()"
                    routerLink="userAdmin">Utilisateurs</a></li>
             <li><a class="dropdown-item" routerLink="emprunt">Emprunt(s)</a></li>
-            <a class="nav-link" routerLink="snake">404</a>
+            <li><a class="dropdown-item" routerLink="waitListAdmin">Listes d'attente</a></li>
+            <li><a class="dropdown-item" routerLink="snake">Dead Link</a></li>
           </ul>
         </li>
       </ul>
       <div class="navbar ml-auto">
         <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
           <li class="nav-item" *ngIf="!authService.isLoggedIn" routerLinkActive="active">
-            <a class="nav-link" routerLink="registration" >S'enregistrer</a>
+            <a class="nav-link" routerLink="registration">S'enregistrer</a>
           </li>
           <li class="nav-item" *ngIf="!authService.isLoggedIn" routerLinkActive="active">
-            <a class="nav-link"  routerLink="login" >Connexion</a>
+            <a class="nav-link" routerLink="login">Connexion</a>
           </li>
-          <li class="nav-item"*ngIf="authService.isLoggedIn" routerLinkActive="active">
+          <li class="nav-item" *ngIf="authService.isLoggedIn" routerLinkActive="active">
             <a class="nav-link" routerLink="profil">Mon compte</a>
           </li>
           <li class="nav-item" *ngIf="authService.isLoggedIn" routerLinkActive="active">
-            <a class="nav-link"  routerLink="login" (click)="logout()" >Déconnexion</a>
+            <a class="nav-link" routerLink="login" (click)="authService.logout()">Déconnexion</a>
           </li>
         </ul>
 

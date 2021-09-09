@@ -5,6 +5,7 @@ import {Router} from "@angular/router";
 import {GameService} from "../services/game.service";
 import {GameStyleDto} from "../models/gameStyleDto.model";
 import {Game} from "../models/game.model";
+import {GameStyleService} from "../services/style.service";
 
 @Component({
   selector: 'app-adding-game',
@@ -21,12 +22,13 @@ export class AddingGameComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
               private userService: UserService,
               public gameService: GameService,
+              private styleService:GameStyleService,
               private router: Router) {
   }
 
   ngOnInit(): void {
     this.initForm();
-    this.gameService.getGameStyleList().subscribe(
+    this.styleService.getStyles().subscribe(
       gameStyles => this.gameStyles = gameStyles);
   }
 

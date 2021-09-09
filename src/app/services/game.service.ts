@@ -11,27 +11,49 @@ const apiUrl = 'http://localhost:8989/game/';
 @Injectable()
 export class GameService {
 
-  constructor(private http :HttpClient){}
+  constructor(private http: HttpClient) {
+  }
 
 
-  getAllGames():Observable<any>{
+  getAllGames(): Observable<any> {
     return this.http.get<any[]>(apiUrl + 'all');
   }
 
-  getGameById(id:number):Observable<Game>{
-    return this.http.get<any>(apiUrl + id);
+  getAllGamesByRating(): Observable<any> {
+    return this.http.get<any[]>(apiUrl + "all/rating");
   }
 
-  addGame(data:any):Observable<any>{
-    return this.http.post<any>(apiUrl + 'add',data);
+  getAllGamesByPopularity(): Observable<any> {
+    return this.http.get<any>(apiUrl + "all/popularity");
   }
-  getGameStyleList():Observable<Set<GameStyleDto>>{
-    return this.http.get<any>('http://localhost:8989/style/all');
+
+  getAllGamesByAge(): Observable<any> {
+    return this.http.get<any[]>(apiUrl + "all/age");
   }
-  getGameStyleById(id:number):Observable<Set<GameStyleDto>>{
-    return this.http.get<any>('http://localhost:8989/style/'+id);
+
+  getAllGamesByMinPlayers(): Observable<any> {
+    return this.http.get<any[]>(apiUrl + "all/minPlayers");
   }
-  updateGame(gameForm:FormGroup):Observable<any>{
-    return this.http.put(apiUrl+"update",gameForm);
+
+  getAllGamesByStyleId(id: number): Observable<any> {
+    return this.http.get<any[]>(apiUrl + "all/style/" + id);
+
+  }
+
+  getAllGamesByNameResearched(name: String): Observable<any> {
+    return this.http.get<any>(apiUrl + "all/name/" + name);
+  }
+
+  getGameById(id: number): Observable<Game> {
+    return this.http.get<any>(apiUrl + 'id/' + id);
+  }
+
+  addGame(data: any): Observable<any> {
+    return this.http.post<any>(apiUrl + 'add', data);
+  }
+
+
+  updateGame(gameForm: FormGroup): Observable<any> {
+    return this.http.put(apiUrl + "update", gameForm);
   }
 }

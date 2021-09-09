@@ -1,5 +1,5 @@
 import {Component, Injectable, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from "@angular/forms";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {UserService} from "../services/user.service";
 import {Router} from "@angular/router";
 import {AuthService} from "../services/auth.service";
@@ -26,12 +26,12 @@ export class RegistrationComponent implements OnInit {
 
   initForm() {
     this.userForm = this.formBuilder.group({
-      firstname: '',
-      name: '',
-      email: '',
-      password: '',
-      birthDate: '',
-      username: ''
+      firstname: ['', [Validators.required]],
+      name: ['', [Validators.required]],
+      email: ['', [Validators.required]],
+      password:['', [Validators.required]],
+      birthDate:['', [Validators.required]],
+      username: ['', [Validators.required]],
     });
   }
   onNavigateToLogin(){
@@ -43,9 +43,10 @@ export class RegistrationComponent implements OnInit {
     this.authService.register(userForm)
       .subscribe(res => {
         this.router.navigate(['login']);
-      }, (err) => {
-        console.log(err);
-        alert(err.error);
+      }, (res) => {
+
+        console.log(res);
+        alert(res.error);
       });
   }
 

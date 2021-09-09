@@ -1,27 +1,36 @@
-<section>
-<div class="container" style="text-align: center;">
-  <div>
-    <h3>Saisissez vos identifiants</h3>
-    <span type="submit" class="button"  (click)="onNavigateToRegister()">Pas encore inscrit?</span>
-  </div>
-</div>
-</section>
 <section style="text-align: center;padding: 50px">
-  <div class="container" style="justify-content: space-around">
-    <form class="example-form" [formGroup]="userLoginForm" (ngSubmit)="onSubmitFormLogin(userLoginForm.value)"
-          (keyup.enter)="onSubmitFormLogin(userLoginForm.value)">
-      <mat-form-field>
-        <mat-label for="username">Nom d'utilisateur</mat-label>
-        <input type="text" id="username" matInput class="form-control" formControlName="username"
-               [errorStateMatcher]="matcher">
-      </mat-form-field>
-      <br>
-      <mat-form-field class="form-group">
-        <mat-label for="password">Mot de passe</mat-label>
-        <input type="password" matInput id="password" class="form-control" formControlName="password">
-      </mat-form-field>
-      <br>
-      <span type="submit" class="button"  (click)="onSubmitFormLogin(userLoginForm.value)">connexion</span>
-    </form>
+  <div class="container" style="justify-content: space-around;text-align: center">
+    <div class="col-6 offset-3" style="text-align: center">
+      <h1 style="font-family: 'Bradley Hand ITC';font-weight: bold;font-size: 2em;
+    border-bottom:2px solid black ">Saisissez vos identifiants</h1>
+    </div>
+    <div style="margin-top: 100px">
+      <form class="example-form" [formGroup]="userLoginForm" (ngSubmit)="onSubmitFormLogin(userLoginForm.value)"
+            (keyup.enter)="onSubmitFormLogin(userLoginForm.value)">
+        <mat-form-field>
+          <mat-label for="username">Nom d'utilisateur</mat-label>
+          <input type="text" id="username" matInput class="form-control" formControlName="username"
+                 [errorStateMatcher]="matcher">
+        </mat-form-field>
+        <br>
+        <mat-form-field class="form-group">
+          <mat-label for="password">Mot de passe</mat-label>
+          <input type="password" matInput id="password" class="form-control" formControlName="password">
+        </mat-form-field>
+        <br>
+        <span type="submit" class="button" (click)="onSubmitFormLogin(userLoginForm.value)">connexion</span>
+
+      </form>
+    </div>
+  </div>
+  <div style="margin-top: 120px">
+    <span type="submit" class="button" (click)="onNavigateToRegister()">Pas encore inscrit?</span>
+    <span type="submit" class="button" (click)="navigateToPassword()">Mot de passe oublié?</span>
+  </div>
+
+</section>
+<section>
+  <div class="container" style="text-align: center;height: 500px">
+    <img src="../assets/jeux-acc80-gogo.png" alt="" class="d-inline-block">
   </div>
 </section>

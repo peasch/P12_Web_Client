@@ -1,7 +1,7 @@
 <section *ngIf="authService.isLoggedIn">
   <div class="container">
     <div class="row" style="text-align: center;margin: 50px">
-      <h1>Gestion des utilisateurs</h1>
+      <h1 style="font-family: 'Bradley Hand ITC';font-weight: bold;font-size: 2em;border-bottom:2px solid black ">Gestion des utilisateurs</h1>
     </div>
   </div>
 
@@ -12,17 +12,24 @@
               style="margin: 20px;box-shadow:0 1px 10px rgba(0 ,0, 0,19);display: inline-flex ">
 
       <mat-card-header>
-        <mat-card-title>{{ users.name }}<br>{{users.firstname}}</mat-card-title>
+
+        <mat-card-title>{{ users.name }}<br>{{users.firstname}}<br><br><small>{{users.username}}</small></mat-card-title>
       </mat-card-header>
 
       <mat-card-actions>
         <button type="submit" class="btn btn-outline-dark" style="margin:auto 10px"
                 (click)="navigateToUserUpdate(users.id)"
-                *ngIf="authService.isLoggedIn  && userService.isAdmin()">Modifier l'utilisateur
-        </button>
+                *ngIf="authService.isLoggedIn  && userService.isAdmin()">
+          <img src="../assets/66728_edit_icon.png" style="height: 64px"
+               matTooltip="Modifier" matTooltipPosition="above"></button>
 
       </mat-card-actions>
 
     </mat-card>
+  </div>
+</section>
+<section>
+  <div class="container" style="text-align: center;height: 500px">
+    <img src="../assets/jeux-acc80-gogo.png" alt="" class="d-inline-block">
   </div>
 </section>

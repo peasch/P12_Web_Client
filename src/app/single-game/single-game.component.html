@@ -1,4 +1,5 @@
-<section *ngIf="authService.isLoggedIn &&(userService.isAdmin()|| userService.isModo())">
+<section *ngIf="authService.isLoggedIn &&(userService.isAdmin()|| userService.isModo())"
+         style="border-bottom: 1px solid black">
   <div class="container">
     <div class="row" style="margin: 30px">
       <div class="col-4 offset-2" style="text-align: center">
@@ -25,34 +26,34 @@
 <section>
   <div class="container">
     <div class="row" style="margin: 30px">
-      <div class="col-4 offset-2">
-        <p>
-          <img style="max-width: 200px;height: auto" src="{{game.coverLink}}"/>
-        </p>
-        <h3> {{game.name}}</h3>
+      <div class="col-lg-8 col-sm-9" style="text-align: center">
+        <h1 style="font-family: 'Bradley Hand ITC';margin-top:100px;font-weight: bold;font-size: 2em;border-bottom:2px solid black "> {{game.name}}</h1>
+        <div style="margin: 50px">
+          {{game.description}}
+        </div>
 
+      </div>
+      <div class="col-lg-3 col-sm-3">
+        <img style="max-width: 150px;height: auto;margin: 30px" src="{{game.coverLink}}"/><br>
         <span> âge minimum : {{game.ageMin}} ans</span><br>
         <span>De {{game.minPlayers}} à {{game.minPlayers}} joueurs</span><br>
         <span> Durée de la partie : moins de {{game.duration}} minutes</span><br>
         <span *ngIf="game.gameStyleDto!=null"> genre de jeu : {{game.gameStyleDto.name}}</span>
-      </div>
-      <div class="col-4">
-        <div>
-          <p>{{game.description}}</p>
-        </div>
         <div *ngIf="authService.isLoggedIn && userService.isMember()">
       <span type="submit" class="button" data-bs-toggle="modal" data-bs-target="#exampleModal"
             style="margin: 20px;padding: 10px" *ngIf="authService.isLoggedIn  && game.available ">
       Emprunter
       </span>
-          <button type="submit" class="btn btn-outline-danger" style="margin:10px "
-                  *ngIf="authService.isLoggedIn  && !game.available ">J'attends mon tour!
+          <button type="submit" class="btn btn-outline-danger" style="margin:10px " data-bs-toggle="modal"
+                  data-bs-target="#waitListModal"
+                  *ngIf="authService.isLoggedIn  && !game.available ">Je me joint à la liste d'attente
           </button>
 
         </div>
       </div>
-
-
+      <div class="col-lg-8 col-sm-9" style="text-align: center">
+        <youtube-player #player [videoId]="game.rulesLink"></youtube-player>
+      </div>
       <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content">
@@ -72,10 +73,35 @@
           </div>
         </div>
       </div>
+      <div class="modal fade" id="waitListModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="waitListModalLabel">Demander à être rappelé</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              Confirmez la mise sur liste d'attente pour : {{game.name}}
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+              <span type="submit" class="button" data-bs-dismiss="modal" (click)="onAddWaitList(game.id)">
+          Confirmer
+        </span>
+            </div>
+          </div>
+        </div>
+      </div>
       <div class="col-4" *ngIf="authService.isLoggedIn  && (userService.isAdmin()|| userService.isModo())">
 
       </div>
     </div>
+  </div>
+</section>
+<section style="padding-top: 50px">
+  <div class="col-4 offset-4" style="text-align: center;margin-top: 50px">
+    <h1 style="font-family: 'Bradley Hand ITC';font-weight: bold;font-size: 2em;border-bottom:2px solid black ">
+      Avis des joueurs:</h1>
   </div>
   <app-advices [id]="gameId" *ngIf="authService.isLoggedIn && userService.isMember()"></app-advices>
   <div class="container" style="text-align: center">

@@ -17,6 +17,7 @@
     </div>
   </div>
 </section>
+
 <section *ngIf="pendings.length!==0" style="margin: 30px">
   <div class="container">
     <h3>demandes d'emprunt en attente</h3>
@@ -30,7 +31,24 @@
       </div>
     </div>
   </div>
+</section>
 
+<section *ngIf="waitLists.length!==0" style="margin: 30px">
+  <div class="container">
+    <h3>listes d'attente</h3>
+    <div class="row">
+      <div class="col-lg-3" *ngFor="let waitlist of waitLists"
+           style="border: black solid 1px;margin: 30px;padding: 10px">
+        <h3>{{waitlist.game.name}} </h3>
+        <button type="submit" class="btn btn-outline-dark" style="margin:10px " (click)="onBorrowingFromWL(waitlist.game.id)"
+        >emprunter
+        </button>
+        <button type="submit" class="btn btn-outline-dark" style="margin:10px " (click)="navigateToDetails(waitlist.game.id)"
+        >fiche du jeu
+        </button>
+      </div>
+    </div>
+  </div>
 </section>
 
 <section *ngIf="borrowings.length!==0" style="margin: 30px">

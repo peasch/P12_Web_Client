@@ -1,22 +1,30 @@
-
 <section>
   <div class="container" *ngIf="pendings.length!==0">
-    <h3>Demande d'emprunts en attente</h3>
-    <div class="row">
-      <div class="col-lg-3" *ngFor="let borrowing of pendings"
+    <div class="container">
+      <div class="row" style="text-align: center;margin: 50px">
+        <h1 style="font-family: 'Bradley Hand ITC';
+      font-weight: bold;font-size: 2em;border-bottom:2px solid black ">Demande d'emprunts en attente</h1>
+      </div>
+    </div>
+    <div class="row" style="text-align: center;justify-content: center">
+      <div class="col-lg-4" *ngFor="let borrowing of pendings"
            style="border: black solid 1px;margin: 30px;padding: 10px">
         <div class="row">
         <span
-          style="text-decoration: black underline"> Demandeur : {{borrowing.borrowerDto.name}} {{borrowing.borrowerDto.firstname}}</span><br>
+          style="text-decoration: black underlinefont-size: 1.2em;font-weight: bold"> Demandeur : {{borrowing.borrowerDto.name}} {{borrowing.borrowerDto.firstname}}</span><br>
           <span> jeu : {{borrowing.copyDto.game.name}} </span><br>
           <span> copie : {{borrowing.copyDto.code}}</span><br>
 
         </div>
         <button type="submit" class="btn btn-outline-dark" style="margin:10px "
-                (click)="onValidBorrowing(borrowing.id)">Valider
+                (click)="onValidBorrowing(borrowing.id)">
+          <img src="../assets/ok.png" style="height: 64px"
+               matTooltip="ok :)" matTooltipPosition="above">  Valider
         </button>
         <button type="submit" class="btn btn-outline-dark" style="margin:10px "
-                (click)="onDeleteBorrowing(borrowing.id)">Supprimer
+                (click)="onDeleteBorrowing(borrowing.id)">
+          <img src="../assets/delete.png" style="height: 64px"
+               matTooltip="nope!" matTooltipPosition="above">  Supprimer
         </button>
       </div>
     </div>
@@ -24,35 +32,53 @@
 </section>
 <section>
   <div class="container" *ngIf="unreturneds.length!==0">
-    <h3>Emprunts en cours</h3>
-    <div class="row">
-      <div class="col-lg-3" *ngFor="let borrowing of unreturneds"
+    <div class="container">
+      <div class="row" style="text-align: center;margin: 50px">
+        <h1 style="font-family: 'Bradley Hand ITC';
+      font-weight: bold;font-size: 2em;border-bottom:2px solid black ">Emprunts en cours</h1>
+      </div>
+    </div>
+
+    <div class="row"style="text-align: center;justify-content: center">
+      <div class="col-lg-4" *ngFor="let borrowing of unreturneds"
            style="border: black solid 1px;margin: 30px;padding: 10px">
         <div class="row">
         <span
-          style="text-decoration: black underline"> emprunteur : {{borrowing.borrowerDto.name}} {{borrowing.borrowerDto.firstname}}</span><br>
+          style="text-decoration: black underline;font-size: 1.2em;font-weight: bold"> Emprunteur : {{borrowing.borrowerDto.name}} {{borrowing.borrowerDto.firstname}}</span><br>
           <span> jeu : {{borrowing.copyDto.game.name}} </span><br>
           <span> copie : {{borrowing.copyDto.code}}</span><br>
           <span>date d'emprunt : {{borrowing.date | date :'fullDate' :'':'fr-FR'}}</span><br>
           <span>retour prévu: {{borrowing.returnDate | date :'fullDate' :'':'fr-FR'}}</span><br>
         </div>
         <button type="submit" class="btn btn-outline-dark" style="margin:10px "
-                (click)="onReturnBorrowing(borrowing.id)">Restituer
+                (click)="onReturnBorrowing(borrowing.id)">
+          <img src="../assets/return.png" style="height: 64px"
+               matTooltip="Restituer" matTooltipPosition="above">  Restituer
         </button>
       </div>
     </div>
   </div>
 </section>
-<section *ngIf="returneds.length!==0" style="margin: 30px">
-  <div class="container">
-    <h3>Précédents emprunts</h3>
-    <div class="row">
-      <div class="col-lg-2" *ngFor="let borrowing of returneds"
-           style="border: black solid 1px;margin: 5px;padding: 10px">
-        <span>emprunté par : {{borrowing.borrowerDto.username}}</span><br>
-        <span>jeu : {{borrowing.copyDto.game.name}}</span><br>
-        <span> rendu le : {{borrowing.returnDate | date :'shortDate' :'':'fr-FR'}}</span><br>
+<section *ngIf="returneds.length!==0" style="text-align: center;margin: 30px">
+  <div class="container" style="text-align: center">
+    <div class="container">
+      <div class="row" style="text-align: center;margin: 50px">
+        <h1 style="font-family: 'Bradley Hand ITC';
+      font-weight: bold;font-size: 2em;border-bottom:2px solid black ">Précédents emprunts</h1>
       </div>
     </div>
+    <div class="row" style="text-align: center;justify-content: center">
+        <div class="col-lg-2" *ngFor="let borrowing of returneds"
+             style="border: black solid 1px;margin: 5px;padding: 10px">
+          <span style="font-size: 1.2em;font-weight: bold">Emprunté par : {{borrowing.borrowerDto.username}}</span><br>
+          <span>jeu : {{borrowing.copyDto.game.name}}</span><br>
+          <span> rendu le : {{borrowing.returnDate | date :'shortDate' :'':'fr-FR'}}</span><br>
+      </div>
+    </div>
+  </div>
+</section>
+<section>
+  <div class="container" style="text-align: center;height: 500px">
+    <img src="../assets/jeux-acc80-gogo.png" alt="" class="d-inline-block">
   </div>
 </section>

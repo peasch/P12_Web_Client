@@ -4,16 +4,17 @@ export class Game {
   public id!: number;
 
   name!: string;
-
+  rating!: number;
   ageMin!: number;
-   gameStyleDto!: GameStyleDto;
+  gameStyleDto!: GameStyleDto;
   minPlayers!: number;
   maxPlayers!: number;
-  private available!: boolean;
+  available!: boolean;
   duration!: number;
   rulesLink!: string;
   description!: string;
   coverLink!: string;
+  borrowingQuantity!: number;
 
   constructor() {
   }

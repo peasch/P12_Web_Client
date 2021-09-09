@@ -1,5 +1,5 @@
-#home2{
 
+#home2{
 
   padding: 30px;
   display: block;
@@ -43,3 +43,4 @@
   transition: -webkit-transform .6s cubic-bezier(.08, .35, .13, 1.02), opacity .4s;
   transition: transform .6s cubic-bezier(.08, .35, .13, 1.02), opacity
 }
+/*--------------------------------------------*/

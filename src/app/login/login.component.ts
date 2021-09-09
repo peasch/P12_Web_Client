@@ -5,6 +5,8 @@ import {Router} from "@angular/router";
 
 import {AuthService} from "../services/auth.service";
 import {ErrorStateMatcher} from "@angular/material/core";
+import {CookieService} from "ngx-cookie-service";
+
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
     const isSubmitted = form && form.submitted;
@@ -20,11 +22,13 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 export class LoginComponent implements OnInit {
   isLoggedIn!: boolean;
   userLoginForm!: FormGroup;
-value='Clear me';
+  value = 'Clear me';
   matcher = new MyErrorStateMatcher();
+
   constructor(private formBuilder: FormBuilder,
               private userService: UserService,
               private authService: AuthService,
+              private cookieService:CookieService,
               private router: Router) {
 
   }
@@ -35,8 +39,8 @@ value='Clear me';
 
   initForm() {
     this.userLoginForm = this.formBuilder.group({
-      password: ['',[Validators.required]],
-      username: ['',[Validators.required]]
+      password: ['', [Validators.required]],
+      username: ['', [Validators.required]]
     });
   }
 
@@ -45,27 +49,33 @@ value='Clear me';
       .subscribe(res => {
         console.log(res);
         if (res) {
-          localStorage.setItem('token', res);
-          this.router.navigate(['']);
+          sessionStorage.setItem('token', res);
+          this.router.navigate(['home']);
         }
       }, (err) => {
         console.log(err);
       });
     this.isLoggedIn = this.authService.isLoggedIn;
-    // @ts-ignore
     this.userService.resolvingToken();
-    this.router.navigate(['']);
+    this.router.navigate(['home']);
 
   }
 
-  onNavigateToRegister(){
+  onNavigateToRegister() {
     this.router.navigate(['registration']);
   }
-  logout(){
-    localStorage.removeItem('token');
-    localStorage.removeItem('username');
-    this.authService.logout();
-    this.isLoggedIn=this.authService.isLoggedIn;
+  navigateToPassword(){
+    this.router.navigate(['password']);
   }
+
+  logout() {
+    sessionStorage.removeItem('token');
+    sessionStorage.removeItem('username');
+
+    this.authService.logout();
+    this.isLoggedIn = this.authService.isLoggedIn;
+  }
+
+
 
 }

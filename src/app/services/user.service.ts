@@ -1,10 +1,11 @@
 import {User} from '../models/user.model';
 import {Observable, Subject} from "rxjs";
 import {Injectable} from "@angular/core";
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpParams} from "@angular/common/http";
 import {JwtHelperService} from '@auth0/angular-jwt';
 import {Role} from "../models/role.model";
 import {FormGroup} from "@angular/forms";
+import {CookieService} from "ngx-cookie-service";
 
 
 const apiUrl = 'http://localhost:8989/user/';
@@ -15,24 +16,25 @@ export class UserService {
   admin!: boolean;
   roles!: Set<Role>;
   userSubject = new Subject<User[]>();
+  username!:string;
 
   constructor(private http: HttpClient,
+              private cookieService:CookieService,
               private jwtHelperService: JwtHelperService) {
   }
 
 
   resolvingToken(): String {
-
     // @ts-ignore
-    const decodedoken = this.jwtHelperService.decodeToken(localStorage.getItem('token'));
-    localStorage.setItem('username',decodedoken.sub);
+    const decodedoken = this.jwtHelperService.decodeToken(sessionStorage.getItem('token'));
+    sessionStorage.setItem('username',decodedoken.sub);
     return decodedoken.sub;
 
   }
 
   getRoleOfToken(): Set<Role> {
     // @ts-ignore
-    const decodeToken = this.jwtHelperService.decodeToken(localStorage.getItem('token'));
+    const decodeToken = this.jwtHelperService.decodeToken(sessionStorage.getItem('token'));
     return decodeToken.roles;
   }
 
@@ -94,6 +96,16 @@ export class UserService {
   deleteUser(id:number):Observable<any>{
     return this.http.delete(apiUrl + "delete/"+ id);
   }
+
+  sendMailToResetPassword(data:any):Observable<any>{
+    // @ts-ignore
+    return this.http.post<any>(apiUrl + 'sendResetMail' ,data);
+  }
+
+  resetPassword(params:HttpParams,data:any):Observable<any>{
+    return this.http.post<any>(apiUrl + 'resetPassword',data,{params:params});
+  }
+
 }
 
 

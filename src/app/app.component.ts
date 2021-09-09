@@ -1,4 +1,8 @@
 import { Component } from '@angular/core';
+import {CookieService} from "ngx-cookie-service";
+import {AuthService} from "./services/auth.service";
+import {UserService} from "./services/user.service";
+import {User} from "./models/user.model";
 
 @Component({
   selector: 'app-root',
@@ -7,5 +11,19 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'jeux à gogo';
+  user!:User;
+  logged= false;
+
+  constructor(private cookie:CookieService,
+              private authService:AuthService,
+              private userService:UserService) {
+  }
+  ngOnInit() {
+   if(sessionStorage.getItem('token')!==null){
+     this.logged=true;
+     this.userService.getUserDatas().subscribe(user=>
+       this.user=user);
+   }
+  }
 
 }

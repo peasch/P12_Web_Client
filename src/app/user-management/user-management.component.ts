@@ -21,7 +21,7 @@ export class UserManagementComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.token = localStorage.getItem('token');
+    this.token = sessionStorage.getItem('token');
     this.userService.getUsers().subscribe(users =>
       this.users=users);
 

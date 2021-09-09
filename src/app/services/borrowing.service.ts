@@ -52,6 +52,10 @@ export class BorrowingService {
 
     return this.http.post<any>(apiUrl + 'add/' + gameId, username);
   }
+  addBorrowingFromWaitList(gameId: number, username: string | null): Observable<any> {
+
+    return this.http.post<any>(apiUrl + 'addFromWL/' + gameId, username);
+  }
 
   deleteBorrowingDemand(gamedId: number): Observable<any> {
     return this.http.delete<any>(apiUrl + 'delete/' + gamedId);

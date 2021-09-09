@@ -3,7 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 
 import { AppComponent } from './app.component';
-import { AuthComponent } from './auth/auth.component';
 import { RegistrationComponent } from './registration/registration.component';
 import {RouterModule, Routes} from "@angular/router";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
@@ -43,6 +42,19 @@ import { VideoComponent } from './video/video.component';
 import { YouTubePlayerModule } from '@angular/youtube-player';
 import { UserModifyComponent } from './user-modify/user-modify.component';
 import {RoleService} from "./services/role.service";
+import {CookieService} from "ngx-cookie-service";
+import { WaitListManagementComponent } from './wait-list-management/wait-list-management.component';
+import {WaitListService} from "./services/waitList.service";
+import { PasswordComponent } from './password/password.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import {GameStyleService} from "./services/style.service";
+import {MatToolbarModule} from "@angular/material/toolbar";
+import {MatTooltipModule} from "@angular/material/tooltip";
+import { StyleResearchComponent } from './style-research/style-research.component';
+import { AgeResearchComponent } from './age-research/age-research.component';
+import { PlayersResearchComponent } from './players-research/players-research.component';
+import { DialogExampleComponent } from './dialog-example/dialog-example.component';
+import { NameResearchComponent } from './name-research/name-research.component';
 
 registerLocaleData(localeFr, 'fr-FR',localeFrExtra);
 
@@ -57,7 +69,14 @@ const appRoutes: Routes = [
   {path:'emprunt',canActivate:[AuthGuard],component:BorrowingManagementComponent},
   {path:'home', component:HomeComponent},
   {path:'userAdmin',canActivate:[AuthGuard],component:UserManagementComponent},
+  {path:'waitListAdmin',canActivate:[AuthGuard],component:WaitListManagementComponent},
   {path:'userUpdate/:id',canActivate:[AuthGuard],component:UserModifyComponent},
+  {path:'styleResearch/:id',component:StyleResearchComponent},
+  {path:'ageResearch/:id',component:AgeResearchComponent},
+  {path:'playersResearch/:id',component:PlayersResearchComponent},
+  {path:'nameResearch/:name',component:NameResearchComponent},
+  {path:'password',component:PasswordComponent},
+  {path:'resetPassword',component:ResetPasswordComponent},
   {path:'not-found', component:FourOhFourComponent},
   {path:'',component:HomeComponent},
   {path:'**',redirectTo:'/not-found'}
@@ -65,7 +84,6 @@ const appRoutes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
-    AuthComponent,
     RegistrationComponent,
     LoginComponent,
     ProfilComponent,
@@ -81,12 +99,20 @@ const appRoutes: Routes = [
     AdvicesComponent,
     VideoComponent,
     UserModifyComponent,
+    WaitListManagementComponent,
+    PasswordComponent,
+    ResetPasswordComponent,
+    StyleResearchComponent,
+    AgeResearchComponent,
+    PlayersResearchComponent,
+    DialogExampleComponent,
+    NameResearchComponent,
 
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
-    RouterModule.forRoot(appRoutes),
+    RouterModule.forRoot(appRoutes,{onSameUrlNavigation: "reload"}),
     FormsModule,
     ReactiveFormsModule,
     ModalModule,
@@ -102,6 +128,8 @@ const appRoutes: Routes = [
     MatIconModule,
     MatCardModule,
     YouTubePlayerModule,
+    MatToolbarModule,
+    MatTooltipModule,
 
 
   ],
@@ -118,6 +146,9 @@ const appRoutes: Routes = [
     BorrowingService,
     AdviceService,
     RoleService,
+    CookieService,
+    WaitListService,
+    GameStyleService,
     AuthGuard
   ],
   bootstrap: [AppComponent]

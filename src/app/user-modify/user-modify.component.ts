@@ -48,12 +48,9 @@ export class UserModifyComponent implements OnInit {
 
 
   onSubmitForm(userUpdateForm: FormGroup) {
-
-    console.log(userUpdateForm);
     this.userService.addRoleToUser(userUpdateForm, this.userId).subscribe(res => {
       this.ngOnInit();
     })
-
   }
 
   onRemoveRoleOfUser(id: number) {
