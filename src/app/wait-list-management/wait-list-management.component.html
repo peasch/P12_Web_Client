@@ -1,0 +1,42 @@
+<section *ngIf="waitLists.length===0">
+  <div class="container">
+    <div class="row" style="text-align: center;margin: 50px">
+      <h1 style="font-family: 'Bradley Hand ITC';
+      font-weight: bold;font-size: 2em;border-bottom:2px solid black "> Aucune liste d'attente en cours !</h1>
+    </div>
+  </div>
+</section>
+<section>
+  <mat-card class="example-card" *ngFor="let waitList of waitLists; let i = index"
+            style="margin: 20px;box-shadow:0 1px 10px rgba(0 ,0, 0,19);display: inline-flex ">
+    <div class="col-4" style="text-align: center">
+
+      <img style="max-width: 120px;height: auto;margin: 20px" src="{{waitList.game.coverLink}}"/>
+    </div>
+    <div style="margin-left: 20px">
+      <mat-card-content style="padding-top: 30px">
+        <mat-card-header>
+          <mat-card-title>{{ waitList.game.name }}</mat-card-title>
+        </mat-card-header>
+        <p>
+          {{waitList.waiter.username}} à demandé le jeu dès son retour.<br>
+          retour prévu le : {{waitList.returnDate|date:'fullDate':'':'fr-FR'}}
+        </p>
+        <mat-card-actions>
+          <button type="button" class="btn btn-outline-dark" style="margin-left:30px "
+                  data-bs-toggle="modal" data-bs-target="#exampleModal"
+                  (click)="onDeleteWaitList(waitList.id)">Retirer de la liste d'attente
+          </button>
+
+        </mat-card-actions>
+      </mat-card-content>
+
+
+    </div>
+  </mat-card>
+</section>
+<section>
+  <div class="container" style="text-align: center;height: 500px">
+    <img src="../assets/jeux-acc80-gogo.png" alt="" class="d-inline-block">
+  </div>
+</section>
