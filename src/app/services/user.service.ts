@@ -16,10 +16,10 @@ export class UserService {
   admin!: boolean;
   roles!: Set<Role>;
   userSubject = new Subject<User[]>();
-  username!:string;
+  username!: string;
 
   constructor(private http: HttpClient,
-              private cookieService:CookieService,
+              private cookieService: CookieService,
               private jwtHelperService: JwtHelperService) {
   }
 
@@ -27,7 +27,7 @@ export class UserService {
   resolvingToken(): String {
     // @ts-ignore
     const decodedoken = this.jwtHelperService.decodeToken(sessionStorage.getItem('token'));
-    sessionStorage.setItem('username',decodedoken.sub);
+    sessionStorage.setItem('username', decodedoken.sub);
     return decodedoken.sub;
 
   }
@@ -44,21 +44,23 @@ export class UserService {
 
   }
 
-  getUserDatasById(id:number): Observable<User> {
-    return this.http.get<any>(apiUrl +id);
+  getUserDatasById(id: number): Observable<User> {
+    return this.http.get<any>(apiUrl + id);
 
   }
+
   isAdmin(): boolean {
     this.roles = this.getRoleOfToken();
 
-      for (let role of this.roles) {
-        if (role.role === 'ADMIN') {
-          return true;
-        }
+    for (let role of this.roles) {
+      if (role.role === 'ADMIN') {
+        return true;
       }
-      return false;
+    }
+    return false;
 
   }
+
   isModo(): boolean {
     this.roles = this.getRoleOfToken();
 
@@ -70,40 +72,43 @@ export class UserService {
     return false;
 
   }
+
   isMember(): boolean {
     this.roles = this.getRoleOfToken();
 
     for (let role of this.roles) {
-      if ((role.role === 'MODERATOR')||(role.role === 'MEMBER')||(role.role === 'ADMIN')) {
+      if ((role.role === 'MODERATOR') || (role.role === 'MEMBER') || (role.role === 'ADMIN')) {
         return true;
       }
     }
     return false;
 
   }
+
   getUsers(): Observable<Set<User>> {
     return this.http.get<any>(apiUrl + 'all');
 
   }
 
-  addRoleToUser(form:FormGroup,id:number):Observable<any>{
-   return this.http.put(apiUrl+ "addRole/"+id,form);
-  }
-  removeRoleToUser(id:number,user:User):Observable<any>{
-    return this.http.put(apiUrl+ "removeRole/"+id,user);
+  addRoleToUser(form: FormGroup, id: number): Observable<any> {
+    return this.http.put(apiUrl + "addRole/" + id, form);
   }
 
-  deleteUser(id:number):Observable<any>{
-    return this.http.delete(apiUrl + "delete/"+ id);
+  removeRoleToUser(id: number, user: User): Observable<any> {
+    return this.http.put(apiUrl + "removeRole/" + id, user);
   }
 
-  sendMailToResetPassword(data:any):Observable<any>{
+  deleteUser(id: number): Observable<any> {
+    return this.http.delete(apiUrl + "delete/" + id);
+  }
+
+  sendMailToResetPassword(data: any): Observable<any> {
     // @ts-ignore
-    return this.http.post<any>(apiUrl + 'sendResetMail' ,data);
+    return this.http.post<any>(apiUrl + 'sendResetMail', data);
   }
 
-  resetPassword(params:HttpParams,data:any):Observable<any>{
-    return this.http.post<any>(apiUrl + 'resetPassword',data,{params:params});
+  resetPassword(params: HttpParams, data: any): Observable<any> {
+    return this.http.post<any>(apiUrl + 'resetPassword', data, {params: params});
   }
 
 }

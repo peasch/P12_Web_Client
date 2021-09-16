@@ -1,7 +1,10 @@
 <section style="margin: 30px">
   <div class="heading">
     <div class="container">
-      <h2>Profil personnel</h2>
+      <div class="col-4 offset-4" style="text-align: center;margin-top: 50px">
+        <h3 style="font-family: 'Bradley Hand ITC';font-weight: bold;font-size: 2em;border-bottom:2px solid black ">
+          Informations personnelles:</h3>
+      </div>
       <div class="row">
         <div class="red-divider"></div>
         <div class="container skillancien">
@@ -20,12 +23,17 @@
 
 <section *ngIf="pendings.length!==0" style="margin: 30px">
   <div class="container">
-    <h3>demandes d'emprunt en attente</h3>
+    <div class="col-4 offset-4" style="text-align: center;margin-top: 50px">
+      <h3 style="font-family: 'Bradley Hand ITC';font-weight: bold;font-size: 2em;border-bottom:2px solid black ">
+        Demande(s) d'emprunt en attente:</h3>
+    </div>
+
     <div class="row">
       <div class="col-lg-3" *ngFor="let borrowing of pendings"
            style="border: black solid 1px;margin: 30px;padding: 10px">
         <span>jeu : {{borrowing.copyDto.game.name}}</span><br>
-        <button type="submit" class="btn btn-outline-dark" style="margin:10px " (click)="onDeleteBorrowing(borrowing.id)"
+        <button type="submit" class="btn btn-outline-dark" style="margin:10px "
+                (click)="onDeleteBorrowing(borrowing.id)"
         >annuler
         </button>
       </div>
@@ -35,15 +43,26 @@
 
 <section *ngIf="waitLists.length!==0" style="margin: 30px">
   <div class="container">
-    <h3>listes d'attente</h3>
+    <div class="col-4 offset-4" style="text-align: center;margin-top: 50px">
+      <h3 style="font-family: 'Bradley Hand ITC';font-weight: bold;font-size: 2em;border-bottom:2px solid black ">
+        listes d'attente :</h3>
+    </div>
     <div class="row">
       <div class="col-lg-3" *ngFor="let waitlist of waitLists"
            style="border: black solid 1px;margin: 30px;padding: 10px">
-        <h3>{{waitlist.game.name}} </h3>
-        <button type="submit" class="btn btn-outline-dark" style="margin:10px " (click)="onBorrowingFromWL(waitlist.game.id)"
-        >emprunter
-        </button>
-        <button type="submit" class="btn btn-outline-dark" style="margin:10px " (click)="navigateToDetails(waitlist.game.id)"
+        <h3>{{waitlist.game.name}}</h3>
+        <div *ngIf="waitlist.contactDate!=null">
+          <h3>est disponible, voulez-vous l'emprunter ?</h3>
+          <button type="submit" class="btn btn-outline-dark" style="margin:10px "
+                  (click)="onBorrowingFromWL(waitlist.game.id)"
+          >oui
+          </button>
+          <button type="submit" class="btn btn-outline-dark" style="margin:10px " (click)="onDeleteWL(waitlist.id)"
+          >non
+          </button>
+        </div>
+        <button type="submit" class="btn btn-outline-dark" style="margin:10px "
+                (click)="navigateToDetails(waitlist.game.id)"
         >fiche du jeu
         </button>
       </div>
@@ -53,7 +72,10 @@
 
 <section *ngIf="borrowings.length!==0" style="margin: 30px">
   <div class="container">
-    <h3>emprunt en cours</h3>
+    <div class="col-4 offset-4" style="text-align: center;margin-top: 50px">
+      <h3 style="font-family: 'Bradley Hand ITC';font-weight: bold;font-size: 2em;border-bottom:2px solid black ">
+        Emprunts en cours :</h3>
+    </div>
     <div class="row">
       <div class="col-lg-3" *ngFor="let borrowing of borrowings"
            style="border: black solid 1px;margin: 30px;padding: 10px">
@@ -65,17 +87,28 @@
 </section>
 <section *ngIf="returneds.length!==0" style="margin: 30px">
   <div class="container">
-    <h3>Précédents emprunts</h3>
+    <div class="col-4 offset-4" style="text-align: center;margin-top: 50px">
+      <h3 style="font-family: 'Bradley Hand ITC';font-weight: bold;font-size: 2em;border-bottom:2px solid black ">
+        Précédents emprunts:</h3>
+    </div>
     <div class="row">
       <div class="col-lg-3" *ngFor="let borrowing of returneds"
            style="border: black solid 1px;margin: 30px;padding: 10px">
         <span>jeu : {{borrowing.copyDto.game.name}}</span><br>
         <span> rendu le : {{borrowing.returnDate | date :'fullDate' :'':'fr-FR'}}</span><br>
-        <button type="submit" class="btn btn-outline-dark" style="margin:10px " (click)="navigateToDetails(borrowing.copyDto.game.id)"
+        <button type="submit" class="btn btn-outline-dark" style="margin:10px "
+                (click)="navigateToDetails(borrowing.copyDto.game.id)"
         >fiche du jeu
         </button>
       </div>
     </div>
+  </div>
+
+</section>
+<section>
+  <div class="container" style="text-align: center">
+  <span type="submit" class="button" style="margin: 20px;padding: 10px"
+        (click)="navigateBack()">retour</span>
   </div>
 </section>
 

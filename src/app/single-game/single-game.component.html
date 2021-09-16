@@ -1,10 +1,9 @@
-
-
 <section>
   <div class="container">
     <div class="row" style="margin: 30px">
       <div class="col-lg-8 col-sm-9" style="text-align: center">
-        <h1 style="font-family: 'Bradley Hand ITC';margin-top:50px;font-weight: bold;font-size: 2em;border-bottom:2px solid black "> {{game.name}}</h1>
+        <h1
+          style="font-family: 'Bradley Hand ITC';margin-top:50px;font-weight: bold;font-size: 2em;border-bottom:2px solid black "> {{game.name}}</h1>
         <div style="margin: 50px">
           {{game.description}}
         </div>
@@ -13,7 +12,7 @@
       <div class="col-lg-3 col-sm-3">
         <img style="max-width: 150px;height: auto;margin: 30px" src="{{game.coverLink}}"/><br>
         <span> âge minimum : {{game.ageMin}} ans</span><br>
-        <span>De {{game.minPlayers}} à {{game.minPlayers}} joueurs</span><br>
+        <span>De {{game.minPlayers}} à {{game.maxPlayers}} joueurs</span><br>
         <span> Durée de la partie : moins de {{game.duration}} minutes</span><br>
         <span *ngIf="game.gameStyleDto!=null"> genre de jeu : {{game.gameStyleDto.name}}</span>
         <div *ngIf="authService.isLoggedIn && userService.isMember()">
@@ -23,9 +22,13 @@
       </span>
           <button type="submit" class="btn btn-outline-danger" style="margin:10px " data-bs-toggle="modal"
                   data-bs-target="#waitListModal"
-                  *ngIf="authService.isLoggedIn  && !game.available ">Je me joint à la liste d'attente
+                  *ngIf="authService.isLoggedIn  && !game.available && !userOnWaitList ">
+            Je me joint à la liste d'attente!
           </button>
-
+          <button type="submit" class="btn btn-outline-danger" style="margin:10px " (click)="navigateToProfile()"
+                  *ngIf="userOnWaitList">
+            Je suis déjà sur la liste d'attente!
+          </button>
         </div>
       </div>
       <div class="col-lg-8 col-sm-9" style="text-align: center">

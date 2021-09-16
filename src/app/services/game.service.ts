@@ -30,6 +30,9 @@ export class GameService {
   getAllGamesByAge(): Observable<any> {
     return this.http.get<any[]>(apiUrl + "all/age");
   }
+  getALlGamesByAgeMinResearched(age:number):Observable<any>{
+    return this.http.get<any>(apiUrl + "all/age/"+age);
+  }
 
   getAllGamesByMinPlayers(): Observable<any> {
     return this.http.get<any[]>(apiUrl + "all/minPlayers");

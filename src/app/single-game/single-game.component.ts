@@ -10,6 +10,8 @@ import {BorrowingService} from "../services/borrowing.service";
 import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
 import {WaitListService} from "../services/waitList.service";
 import {Location} from "@angular/common";
+import {WaitList} from "../models/WaitList.model";
+import {User} from "../models/user.model";
 
 @Component({
   selector: 'app-single-game',
@@ -23,16 +25,19 @@ export class SingleGameComponent implements OnInit {
   game!: any;
   gameId!: number;
   rulesLink!: SafeResourceUrl;
+  userOnWaitList!: boolean;
+  waitListOfGame!: WaitList[];
+  user!: User;
 
 
   constructor(private router: Router,
-              public location:Location,
+              public location: Location,
               private route: ActivatedRoute,
               private gameService: GameService,
               private copyService: CopyService,
               public authService: AuthService,
               public userService: UserService,
-              private waitListService:WaitListService,
+              public waitListService: WaitListService,
               private borrowingService: BorrowingService,
               private formBuilder: FormBuilder,
               public sanitizer: DomSanitizer
@@ -45,12 +50,19 @@ export class SingleGameComponent implements OnInit {
     tag.src = 'https://www.youtube.com/iframe_api';
     document.body.appendChild(tag);
     this.initForm();
+    this.userService.getUserDatas().subscribe(user => {
+      this.user = user;
+      this.waitListService.isOnWaitList(this.gameId, this.user.username).subscribe(res =>
+        this.userOnWaitList = res);
+      this.username = sessionStorage.getItem('username')
+    });
     this.gameId = this.route.snapshot.params['id'];
     this.gameService.getGameById(this.gameId).subscribe(game =>
       this.game = game);
-
-    this.username = sessionStorage.getItem('username');
     this.rulesLink = this.sanitizer.bypassSecurityTrustResourceUrl(this.game.rulesLink);
+
+    this.waitListService.getWaitlistByGameId(this.route.snapshot.params['id']).subscribe(waitlist =>
+      this.waitListOfGame = waitlist);
   }
 
   initForm() {
@@ -68,6 +80,7 @@ export class SingleGameComponent implements OnInit {
 
   }
 
+
   onModifyGame(id: number) {
     this.router.navigate(['modifyGame/' + id])
   }
@@ -76,17 +89,21 @@ export class SingleGameComponent implements OnInit {
     this.location.back();
   }
 
+  navigateToProfile() {
+    this.router.navigate(['profil']);
+  }
+
   onBorrowingGame(gameId: number) {
-    this.borrowingService.addBorrowingDemand(+gameId, sessionStorage.getItem('username')).subscribe(res => {
+    this.borrowingService.addBorrowingDemand(+gameId, this.user.username).subscribe(res => {
       this.router.navigate(['home'])
     });
   }
 
-  onAddWaitList(gameId:number){
-    this.waitListService.addWaitListToGame(gameId,sessionStorage.getItem('username')).subscribe(res => {
-      this.ngOnInit();
-    },
+  onAddWaitList(gameId: number) {
+    this.waitListService.addWaitListToGame(gameId, this.user.username).subscribe(res => {
+        this.ngOnInit();
+      },
       error =>
-    alert("Liste d'attente impossible."));
+        alert("Liste d'attente impossible."));
   }
 }

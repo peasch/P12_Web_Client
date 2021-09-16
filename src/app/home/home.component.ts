@@ -22,13 +22,10 @@ export class HomeComponent implements OnInit {
   gamepop1!: Game;
   gamepop2!: Game;
   gamepop3!: Game;
-  isLoggedIn!: boolean;
   user!: User;
 
   constructor(public authService: AuthService,
               private gameService: GameService,
-              private cookie: CookieService,
-              private userService: UserService,
               public router: Router) {
   }
 
@@ -47,13 +44,6 @@ export class HomeComponent implements OnInit {
         this.gamepop3 = this.gamespop[this.games.length - 3];
       });
     });
-    /*if (sessionStorage.getItem('token') != null) {
-      this.isLoggedIn = true;
-      this.userService.getUserDatas().subscribe(user =>
-        this.user = user);
-    } else {
-      this.isLoggedIn = false;
-    }*/
 
   }
 

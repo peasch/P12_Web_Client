@@ -8,6 +8,7 @@ import {BorrowingService} from "../services/borrowing.service";
 import {GameService} from "../services/game.service";
 import {CookieService} from "ngx-cookie-service";
 import {WaitListService} from "../services/waitList.service";
+import {Location} from "@angular/common";
 
 
 @Component({
@@ -27,6 +28,7 @@ export class ProfilComponent implements OnInit, OnDestroy {
   waitLists!: any[];
 
   constructor(private router: Router,
+              private location:Location,
               public authService: AuthService,
               public userService: UserService,
               public gameService: GameService,
@@ -69,6 +71,13 @@ export class ProfilComponent implements OnInit, OnDestroy {
     this.borrowingService.addBorrowingFromWaitList(+gameId, sessionStorage.getItem('username')).subscribe(res => {
       this.ngOnInit()
     });
+  }
+  onDeleteWL(id:number){
+    this.waitlistService.skipWaitLister(id).subscribe(res=>
+    this.ngOnInit());
+  }
+  navigateBack() {
+    this.location.back();
   }
 
   ngOnDestroy() {

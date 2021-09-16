@@ -7,25 +7,35 @@ const apiUrl = 'http://localhost:8989/waitlist/';
 @Injectable()
 export class WaitListService {
 
-  constructor(private http :HttpClient){}
+  constructor(private http: HttpClient) {
+  }
 
-  getAllWaitList():Observable<any>{
+  getAllWaitList(): Observable<any> {
     return this.http.get<any[]>(apiUrl + 'all');
   }
 
-  getWaitlistByGameId(id:number):Observable<any>{
-    return this.http.get<any>(apiUrl+'game/'+id);
+  getWaitlistByGameId(id: number): Observable<any> {
+    return this.http.get<any>(apiUrl + 'game/' + id);
   }
 
-  getWaitlistByUserId(id:number):Observable<any>{
-    return this.http.get<any>(apiUrl+'user/'+id);
+  getWaitlistByUserId(id: number): Observable<any> {
+    return this.http.get<any>(apiUrl + 'user/' + id);
   }
 
-  addWaitListToGame(id:number, username:string|null):Observable<any>{
-    return this.http.post<any>(apiUrl+'add/'+id,username);
+  addWaitListToGame(id: number, username: any): Observable<any> {
+    return this.http.post<any>(apiUrl + 'add/' + id, username);
   }
 
-  deleteWaitList(id:number):Observable<any>{
-    return this.http.delete(apiUrl+'delete/'+id);
+  deleteWaitList(id: number): Observable<any> {
+    return this.http.delete(apiUrl + 'delete/' + id);
+  }
+
+  skipWaitLister(id: number): Observable<any> {
+    return this.http.delete(apiUrl + 'skip/' + id);
+  }
+
+  isOnWaitList(id: number, username: string|null): Observable<any> {
+
+    return this.http.post<any>(apiUrl + 'game/user/' + id, username);
   }
 }

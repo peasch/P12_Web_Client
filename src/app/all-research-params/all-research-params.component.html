@@ -1,0 +1,30 @@
+<section style="padding: 20px">
+  <div class="container">
+    <div class="row">
+      <div class="col-4  offset-4" style="text-align: center">
+        <div class="form-group">
+          <form (ngSubmit)="onSubmitForm(researchForm.value)" [formGroup]="researchForm">
+            <div class="row">
+              <input type="text" id="name" placeholder="Rechercher un jeu..." name="name"
+                     class="form-control" formControlName="name">
+              <!--<div class="col" style="display:inline;">
+                <div  *ngFor="let age of ages;let i=index">
+                  <input type="checkbox" formControlName="ageMin" id="ageMin" value="{{age}}">
+                  <label for="ageMin">{{age}} ans</label>
+                </div>
+              </div>
+              <div class="col"  style="display:inline;">
+                <div *ngFor="let style of styles;let i=index">
+
+                  <input type="checkbox" formControlName="style" id="style" value="{{style.id}}">
+                  <label for="style">{{style.name}}</label>
+                </div>
+              </div>-->
+            </div>
+            <span class="button" type="submit"  style="margin:10px " (click)="onSubmitForm(researchForm.value)">Rechercher</span>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

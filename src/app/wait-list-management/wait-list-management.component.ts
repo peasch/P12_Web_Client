@@ -18,7 +18,7 @@ export class WaitListManagementComponent implements OnInit {
   }
 
   onDeleteWaitList(id:number){
-    this.waitListService.deleteWaitList(id).subscribe(res=>{
+    this.waitListService.skipWaitLister(id).subscribe(res=>{
       this.ngOnInit();
     })
   }

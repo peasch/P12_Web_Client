@@ -30,6 +30,14 @@
     </div>
   </div>
 </section>
+<section *ngIf="pendings.length==0">
+  <div class="container">
+    <div class="row" style="text-align: center;margin: 50px">
+      <h1 style="font-family: 'Bradley Hand ITC';
+      font-weight: bold;font-size: 2em;border-bottom:2px solid black ">Aucune demande d'emprunt en attente !</h1>
+    </div>
+  </div>
+</section>
 <section>
   <div class="container" *ngIf="unreturneds.length!==0">
     <div class="container">
@@ -56,6 +64,14 @@
                matTooltip="Restituer" matTooltipPosition="above">  Restituer
         </button>
       </div>
+    </div>
+  </div>
+</section>
+<section *ngIf="unreturneds.length==0">
+  <div class="container">
+    <div class="row" style="text-align: center;margin: 50px">
+      <h1 style="font-family: 'Bradley Hand ITC';
+      font-weight: bold;font-size: 2em;border-bottom:2px solid black ">Aucune emprunt en cours !</h1>
     </div>
   </div>
 </section>

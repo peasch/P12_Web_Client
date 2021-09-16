@@ -14,23 +14,23 @@
            matTooltip="details :" matTooltipPosition="above">  Restitution d'un jeu</span>
   </div>
 
-  <!--<div class="col-6" style="text-align: center;justify-content: center">
-    <div>
-      <input style="width: 300px;margin: 0 auto" type="text" id="game" placeholder="Rechercher un jeu..."
-             class="form-control" formControlName="game">
-      <span type="button" class="button"
-            style="margin:10px " routerLink="">Rechercher</span>
-    </div>
-  </div>-->
 </section>
-<section style="padding: 20px">
+<section>
+  <app-all-research-params></app-all-research-params>
+</section>
+<!--<section style="padding: 20px">
   <div class="container">
     <div class="row">
       <div class="col-4  offset-4" style="text-align: center">
         <div class="form-group">
           <form (ngSubmit)="onSubmitForm(researchForm.value)"  [formGroup]="researchForm">
+
             <input type="text" id="name" placeholder="Rechercher un jeu..." name="name"
                    class="form-control" formControlName="name">
+            <div *ngFor="let age of ages;let i=index">
+              <label>{{age}} ans</label>
+              <input  type="checkbox" formControlName="ageMin" value="{{age}}">
+            </div>
 
             <span class="button" type="submit" style="margin:10px " (click)="onSubmitForm(researchForm.value)">Rechercher</span>
           </form>
@@ -38,7 +38,7 @@
       </div>
     </div>
   </div>
-</section>
+</section>-->
 <section>
   <div class="row" style="text-align: center;padding: 50px">
     <h2 style="font-family: 'Bradley Hand ITC';font-weight: bolder;font-size: 50px">Liste de nos jeux</h2>
@@ -74,8 +74,6 @@
             </button>
           </mat-card-actions>
         </mat-card-content>
-
-
       </div>
     </mat-card>
   </div>

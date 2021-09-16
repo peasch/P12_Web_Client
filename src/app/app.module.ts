@@ -55,6 +55,8 @@ import { AgeResearchComponent } from './age-research/age-research.component';
 import { PlayersResearchComponent } from './players-research/players-research.component';
 import { DialogExampleComponent } from './dialog-example/dialog-example.component';
 import { NameResearchComponent } from './name-research/name-research.component';
+import { AllResearchParamsComponent } from './all-research-params/all-research-params.component';
+import { AdviceModifyComponent } from './advice-modify/advice-modify.component';
 
 registerLocaleData(localeFr, 'fr-FR',localeFrExtra);
 
@@ -66,6 +68,7 @@ const appRoutes: Routes = [
   {path:'addGame',canActivate:[AuthGuard],component:AddingGameComponent},
   {path:'singleGame/:id',component:SingleGameComponent},
   {path:'modifyGame/:id',component:ModifyGameComponent},
+  {path:'modifyAdvice/:id',component:AdviceModifyComponent},
   {path:'emprunt',canActivate:[AuthGuard],component:BorrowingManagementComponent},
   {path:'home', component:HomeComponent},
   {path:'userAdmin',canActivate:[AuthGuard],component:UserManagementComponent},
@@ -107,6 +110,8 @@ const appRoutes: Routes = [
     PlayersResearchComponent,
     DialogExampleComponent,
     NameResearchComponent,
+    AllResearchParamsComponent,
+    AdviceModifyComponent,
 
   ],
   imports: [

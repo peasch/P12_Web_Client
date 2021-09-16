@@ -23,12 +23,12 @@ export class ModifyGameComponent implements OnInit {
 
   constructor(private router: Router,
               public gameService: GameService,
-              private styleService:GameStyleService,
+              private styleService: GameStyleService,
               public authService: AuthService,
               public userService: UserService,
               private route: ActivatedRoute,
               private formBuilder: FormBuilder,
-              private location:Location) {
+              private location: Location) {
   }
 
   ngOnInit(): void {
@@ -47,9 +47,9 @@ export class ModifyGameComponent implements OnInit {
       rulesLink: '',
       description: '',
       coverLink: '',
-      rating:'',
-      borrowingQuantity:'',
-      available:''
+      rating: '',
+      borrowingQuantity: '',
+      available: ''
     });
     this.initForm();
     this.styleService.getStyles().subscribe(
@@ -60,7 +60,6 @@ export class ModifyGameComponent implements OnInit {
 
   initForm() {
     this.id = this.route.snapshot.params['id'];
-
     this.gameService.getGameById(+this.id).subscribe(
       game => {
         this.gameForm.patchValue({
@@ -72,17 +71,19 @@ export class ModifyGameComponent implements OnInit {
           'duration': game?.duration,
           'rulesLink': game?.rulesLink,
           'description': game?.description,
-          'gameStyleDto':game?.gameStyleDto,
-          'coverLink':game?.coverLink,
-          'borrowingQuantity':game?.borrowingQuantity,
-          'rating':game?.rating,
-          'available':game?.available
+          'gameStyleDto': game?.gameStyleDto,
+          'coverLink': game?.coverLink,
+          'borrowingQuantity': game?.borrowingQuantity,
+          'rating': game?.rating,
+          'available': game?.available
         })
       });
   }
+
   navigateBack() {
     this.location.back();
   }
+
 
   onModifyGame(gameForm: FormGroup) {
 

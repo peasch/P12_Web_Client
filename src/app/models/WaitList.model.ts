@@ -7,6 +7,7 @@ export class WaitList {
   waiter!: User;
   date!: Date;
   returnDate!: Date;
+  contactDate!:Date;
 
   constructor() {
   }

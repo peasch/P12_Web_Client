@@ -55,6 +55,15 @@ export class AdvicesComponent implements OnInit {
 
   }
 
+  deleteAdvice(id:number){
+    console.log(id);
+    console.log(this.advices[id]);
+    console.log(this.advices[id].id);
+      this.adviceService.delete(this.advices[id].id).subscribe(res=>
+      this.ngOnInit());
+
+
+  }
 
   onSubmitForm(adviceForm: FormGroup) {
     console.log(adviceForm);
@@ -62,9 +71,12 @@ export class AdvicesComponent implements OnInit {
          this.ngOnInit()
        },
        (error) => {
-         console.log(error);
-         alert(error);
+         alert('vous ne pouvez pas poster un autre avis');
        });
+  }
+
+  onModifyAvice(id:number){
+    this.router.navigate(['modifyAdvice/'+id]);
   }
 
 }

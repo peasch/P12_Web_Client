@@ -20,7 +20,7 @@ export class AppComponent {
   }
   ngOnInit() {
    if(sessionStorage.getItem('token')!==null){
-     this.logged=true;
+     this.authService.isLoggedIn=true;
      this.userService.getUserDatas().subscribe(user=>
        this.user=user);
    }
