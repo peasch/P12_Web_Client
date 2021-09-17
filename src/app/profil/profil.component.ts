@@ -9,6 +9,8 @@ import {GameService} from "../services/game.service";
 import {CookieService} from "ngx-cookie-service";
 import {WaitListService} from "../services/waitList.service";
 import {Location} from "@angular/common";
+import {Advice} from "../models/adviceDto.model";
+import {AdviceService} from "../services/advice.service";
 
 
 @Component({
@@ -26,12 +28,14 @@ export class ProfilComponent implements OnInit, OnDestroy {
   pendings!: any[];
   returneds!: any[];
   waitLists!: any[];
+  advices!:Advice[];
 
   constructor(private router: Router,
               private location:Location,
               public authService: AuthService,
               public userService: UserService,
               public gameService: GameService,
+              private adviceService:AdviceService,
               private cookieService: CookieService,
               private waitlistService: WaitListService,
               private borrowingService: BorrowingService) {
@@ -55,6 +59,8 @@ export class ProfilComponent implements OnInit, OnDestroy {
       this.borrowings = borrowings);
     this.borrowingService.getReturnedBorrowingsByUsername(username).subscribe(returneds =>
       this.returneds = returneds);
+    this.adviceService.getAdviceByUsername(username).subscribe(advices=>
+    this.advices=advices);
 
   }
 
@@ -78,6 +84,17 @@ export class ProfilComponent implements OnInit, OnDestroy {
   }
   navigateBack() {
     this.location.back();
+  }
+  onModifyAvice(id:number){
+    this.router.navigate(['modifyAdvice/'+id]);
+  }
+
+  deleteAdvice(id:number){
+
+    this.adviceService.delete(id).subscribe(res=>
+      this.ngOnInit());
+
+
   }
 
   ngOnDestroy() {

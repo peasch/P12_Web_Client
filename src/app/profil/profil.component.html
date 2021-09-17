@@ -85,6 +85,37 @@
     </div>
   </div>
 </section>
+<section *ngIf="advices.length!==0">
+  <div class="container">
+    <div class="col-4 offset-4" style="text-align: center;margin-top: 50px">
+      <h3 style="font-family: 'Bradley Hand ITC';font-weight: bold;font-size: 2em;border-bottom:2px solid black ">
+        Mes avis et notes:</h3>
+    </div>
+    <mat-card class="example-card" *ngFor="let advice of advices; let i = index"
+              style="margin: 20px;box-shadow:0 1px 10px rgba(0 ,0, 0,19);display: inline-flex ">
+      <div class="col-4" style="text-align: center">
+        <img style="max-width: 120px;height: auto;margin: 20px auto" src="{{advice.game.coverLink}}"/>
+      </div>
+      <div>
+        <mat-card-content style="padding-top: 30px">
+          <mat-card-header style="margin-left: 20px">
+            <mat-card-title>{{advice.game.name}}: {{ advice.rating }} / 5</mat-card-title>
+          </mat-card-header>
+          <p style="margin-left: 20px">
+            {{advice.commentary}}
+          </p>
+          <mat-card-actions>
+             <span type="submit" class="button"
+                   *ngIf="(advice.user.username==this.user.username)||userService.isAdmin()|| userService.isModo()"
+                   (click)="deleteAdvice(i)">supprimer</span>
+            <span type="submit" class="button" *ngIf="(advice.user.username==this.user.username)"
+                  (click)="onModifyAvice(advice.id)">Modifier</span>
+          </mat-card-actions>
+        </mat-card-content>
+      </div>
+    </mat-card>
+  </div>
+</section>
 <section *ngIf="returneds.length!==0" style="margin: 30px">
   <div class="container">
     <div class="col-4 offset-4" style="text-align: center;margin-top: 50px">
@@ -105,6 +136,8 @@
   </div>
 
 </section>
+
+
 <section>
   <div class="container" style="text-align: center">
   <span type="submit" class="button" style="margin: 20px;padding: 10px"

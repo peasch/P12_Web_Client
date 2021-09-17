@@ -14,6 +14,10 @@ export class AdviceService {
     return this.http.get<any>(apiUrl + "advice/"+id);
   }
 
+  getAdviceByUsername(username: string | null):Observable<any>{
+    return this.http.get<any>(apiUrl+"username/"+username);
+  }
+
   add(id: number, adviceDto: FormGroup):Observable<any>{
     return this.http.post<any>(apiUrl + "add/"+ id,adviceDto);
   }
@@ -24,4 +28,5 @@ export class AdviceService {
   update(id:number,advice:FormGroup):Observable<any>{
     return this.http.put<any>(apiUrl + 'update/'+id,advice);
   }
+
 }
